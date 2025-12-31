@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Measure AR — Accurate AR Measurement App | Lakvanta Technologies</title>
+
+  <meta name="description"
+        content="Measure AR is an iOS app that lets you measure distance, area and shapes using augmented reality. Accurate, fast and privacy-first. Built by Lakvanta Technologies." />
+
+  <link rel="icon" href="/logo.png" />
+
+  <!-- FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+
+  <style>
+    :root {
+      --primary:#4f46e5;
+      --accent:#22c55e;
+      --bg:#050814;
+      --card:#0f172a;
+      --text:#e5e7f5;
+      --muted:#9ca3c7;
+      --border:rgba(148,163,184,.35);
+      --radius:18px;
+      --radius-full:999px;
+      --shadow:0 22px 60px rgba(15,23,42,.75);
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Inter,system-ui;
+      background:
+        radial-gradient(circle at top left, rgba(99,102,241,.18), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(34,197,94,.20), transparent 60%),
+        linear-gradient(145deg,#05030a,#050814);
+      color:var(--text);
+      line-height:1.6;
+    }
+    a{text-decoration:none;color:inherit}
+    ul{list-style:none}
+
+    .container{max-width:1120px;margin:auto;padding:0 20px}
+
+    /* HEADER */
+    header{
+      position:sticky;top:0;z-index:100;
+      backdrop-filter:blur(18px);
+      background:rgba(5,8,20,.88);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:14px 0;
+    }
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand img{width:40px;height:40px;border-radius:14px}
+    .brand strong{font-size:18px;font-weight:800}
+    nav a{
+      margin-left:18px;
+      font-size:14px;
+      color:var(--muted);
+    }
+    nav a:hover{color:var(--text)}
+
+    .btn-nav{
+      padding:8px 18px;
+      border-radius:var(--radius-full);
+      background:linear-gradient(120deg,var(--primary),var(--accent));
+      font-size:13px;
+      font-weight:600;
+      color:#fff;
+      box-shadow:var(--shadow);
+    }
+
+    /* HERO */
+    .hero{padding:60px 0 80px}
+    .hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0,3fr) minmax(0,2.5fr);
+      gap:40px;
+      align-items:center;
+    }
+
+    .pill{
+      display:inline-flex;
+      gap:8px;
+      padding:6px 12px;
+      font-size:12px;
+      border-radius:var(--radius-full);
+      background:rgba(15,23,42,.85);
+      border:1px solid var(--border);
+      color:var(--muted);
+      margin-bottom:12px;
+    }
+    .pill span{color:var(--accent);font-weight:600}
+
+    h1{
+      font-size:42px;
+      line-height:1.1;
+      letter-spacing:-.05em;
+      margin-bottom:14px;
+    }
+    h1 span{
+      background:linear-gradient(120deg,#818cf8,#4ade80);
+      -webkit-background-clip:text;
+      color:transparent;
+    }
+
+    .subtitle{
+      font-size:16px;
+      max-width:520px;
+      color:var(--muted);
+      margin-bottom:22px;
+    }
+
+    .tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+    .tag{
+      font-size:11px;
+      padding:4px 10px;
+      border-radius:var(--radius-full);
+      background:rgba(148,163,184,.15);
+      border:1px solid var(--border);
+      color:var(--muted);
+    }
+
+    .actions{display:flex;gap:14px;flex-wrap:wrap}
+    .btn-primary{
+      padding:12px 24px;
+      border-radius:var(--radius-full);
+      background:linear-gradient(120deg,var(--primary),var(--accent));
+      color:#fff;
+      font-weight:600;
+      box-shadow:var(--shadow);
+    }
+    .btn-ghost{
+      padding:10px 16px;
+      border-radius:var(--radius-full);
+      background:rgba(15,23,42,.75);
+      border:1px solid var(--border);
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    /* HERO CARD */
+    .hero-card{
+      background:rgba(15,23,42,.92);
+      border-radius:26px;
+      padding:22px;
+      box-shadow:var(--shadow);
+      border:1px solid var(--border);
+    }
+    .hero-card-header{
+      display:flex;gap:12px;align-items:center;margin-bottom:14px;
+    }
+    .badge{
+      font-size:11px;
+      padding:4px 10px;
+      border-radius:var(--radius-full);
+      background:rgba(34,197,94,.18);
+      color:var(--accent);
+      font-weight:600;
+      display:inline-block;
+    }
+    .hero-card ul li{
+      display:flex;gap:8px;
+      font-size:14px;
+      color:var(--muted);
+      margin-bottom:8px;
+    }
+    .dot{
+      width:6px;height:6px;border-radius:999px;
+      background:var(--accent);margin-top:8px;
+    }
+
+    /* SECTION BASE */
+    section{padding:60px 0}
+    .section-title{
+      font-size:26px;
+      letter-spacing:-.03em;
+      margin-bottom:6px;
+    }
+    .section-sub{
+      color:var(--muted);
+      max-width:620px;
+      margin-bottom:28px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:22px;
+    }
+
+    .card{
+      background:rgba(15,23,42,.9);
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      padding:22px;
+      box-shadow:var(--shadow);
+    }
+    .card h3{margin-bottom:6px}
+    .card p{color:var(--muted);font-size:14px}
+
+    footer{
+      border-top:1px solid var(--border);
+      padding:22px 0;
+      text-align:center;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    @media(max-width:860px){
+      .hero-grid{grid-template-columns:1fr}
+      h1{font-size:32px}
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="brand">
+      <img src="/logo.png" alt="Measure AR"/>
+      <strong>Measure AR</strong>
+    </div>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#usecases">Use-cases</a>
+      <a href="#privacy">Privacy</a>
+      <a class="btn-nav"
+         href="itms-apps://itunes.apple.com/app/id6642650935">
+        Download
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-grid">
+
+    <div>
+      <div class="pill">
+        <span>LIVE</span> App Store · iOS
+      </div>
+
+      <h1>
+        Measure the real world.<br/>
+        <span>Powered by AR.</span>
+      </h1>
+
+      <p class="subtitle">
+        Measure AR lets you measure distance, area and custom shapes using your
+        iPhone camera and augmented reality. Accurate, fast and completely on-device.
+      </p>
+
+      <div class="tags">
+        <span class="tag">ARKit</span>
+        <span class="tag">Distance</span>
+        <span class="tag">Area</span>
+        <span class="tag">Metric & Imperial</span>
+        <span class="tag">Privacy-first</span>
+      </div>
+
+      <div class="actions">
+        <a class="btn-primary"
+           href="itms-apps://itunes.apple.com/app/id6642650935">
+          Download Measure AR
+        </a>
+        <a class="btn-ghost" href="#features">
+          Explore features
+        </a>
+      </div>
+    </div>
+
+    <aside class="hero-card">
+      <div class="hero-card-header">
+        <img src="/logo.png" style="width:48px;height:48px;border-radius:16px"/>
+        <div>
+          <span class="badge">AVAILABLE NOW</span>
+          <h3>Measure AR</h3>
+        </div>
+      </div>
+
+      <ul>
+        <li><span class="dot"></span><span>Measure straight lines accurately</span></li>
+        <li><span class="dot"></span><span>Calculate area of rooms & surfaces</span></li>
+        <li><span class="dot"></span><span>Draw custom polygons</span></li>
+        <li><span class="dot"></span><span>Supports cm, m, ft, inch & more</span></li>
+        <li><span class="dot"></span><span>No cloud upload — works offline</span></li>
+      </ul>
+    </aside>
+
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <h2 class="section-title">Core Features</h2>
+    <p class="section-sub">
+      Designed for builders, designers, students and anyone who needs fast,
+      reliable measurements.
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Distance Measurement</h3>
+        <p>Measure lines and edges with AR precision.</p>
+      </div>
+      <div class="card">
+        <h3>Area Calculation</h3>
+        <p>Measure rooms, walls and surfaces instantly.</p>
+      </div>
+      <div class="card">
+        <h3>Custom Shapes</h3>
+        <p>Draw polygons and complex layouts.</p>
+      </div>
+      <div class="card">
+        <h3>Unit Conversion</h3>
+        <p>Metric and imperial units supported.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section id="usecases">
+  <div class="container">
+    <h2 class="section-title">Who is it for?</h2>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Interior Designers</h3>
+        <p>Measure rooms and furniture spacing accurately.</p>
+      </div>
+      <div class="card">
+        <h3>Students</h3>
+        <p>Quick measurements for projects and assignments.</p>
+      </div>
+      <div class="card">
+        <h3>DIY & Home Users</h3>
+        <p>No tape measure needed — just your phone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section id="privacy">
+  <div class="container">
+    <h2 class="section-title">Privacy-first by design</h2>
+    <p class="section-sub">
+      Measure AR processes everything on your device.
+      No images or measurements are uploaded to our servers.
+    </p>
+
+    <div class="card">
+      <p>
+        We do not collect personal data or measurement content.
+        Analytics (if enabled) are limited to crashes and performance only.
+      </p>
+      <p style="margin-top:8px">
+        Read full policy:
+        <a href="/measure/privacy" style="text-decoration:underline">
+          Privacy Policy
+        </a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © <span id="year"></span> Lakvanta Technologies · Measure AR
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

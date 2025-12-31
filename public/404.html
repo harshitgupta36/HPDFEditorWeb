@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ElitePDF – Page Not Found</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: radial-gradient(circle at top, #0a0f1f 0%, #000000 100%);
+        font-family: "SF Pro Display", system-ui, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        color: #ffffff;
+    }
+
+    .glow {
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        background: #1a5cff;
+        filter: blur(180px);
+        opacity: 0.15;
+        top: -150px;
+        left: -150px;
+        border-radius: 50%;
+        animation: floatGlow 8s infinite alternate ease-in-out;
+    }
+
+    @keyframes floatGlow {
+        from { transform: translate(0,0); }
+        to { transform: translate(60px,40px); }
+    }
+
+    .card {
+        backdrop-filter: blur(18px);
+        background: rgba(255, 255, 255, 0.05);
+        padding: 60px;
+        border-radius: 24px;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 40px rgba(0, 85, 255, 0.4);
+        animation: fadeUp 1s ease-out;
+    }
+
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .title-404 {
+        font-size: 8rem;
+        font-weight: 800;
+        margin: 0;
+        background: linear-gradient(135deg, #4f8bff, #1b4dff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 30px rgba(0, 102, 255, 0.7);
+        letter-spacing: -3px;
+    }
+
+    .subtitle {
+        margin-top: -10px;
+        font-size: 1.25rem;
+        opacity: 0.8;
+        font-weight: 300;
+    }
+
+    .home-btn {
+        margin-top: 30px;
+        padding: 14px 38px;
+        font-size: 1rem;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        color: #fff;
+        background: linear-gradient(135deg, #1a5cff, #0031a3);
+        box-shadow: 0 0 20px rgba(0, 102, 255, 0.6);
+        transition: 0.25s ease-in-out;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .home-btn:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 0 30px rgba(0, 119, 255, 0.8);
+    }
+
+    .logo {
+        margin-bottom: 25px;
+        letter-spacing: 1.5px;
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: #8cb5ff;
+        text-shadow: 0 0 12px rgba(0, 132, 255, 0.5);
+    }
+</style>
+</head>
+<body>
+
+<div class="glow"></div>
+
+<div class="card">
+    <div class="logo">ElitePDF</div>
+
+    <div class="title-404">404</div>
+
+    <div class="subtitle">
+        Oops! The page you’re looking for has vanished like an unsaved PDF.
+    </div>
+
+    <a href="/" class="home-btn">Go Back Home</a>
+</div>
+
+</body>
+</html>

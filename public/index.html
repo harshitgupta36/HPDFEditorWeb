@@ -1,0 +1,1289 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Lakvanta Technologies — elitePDF: Smart PDF Editor</title>
+
+  <!-- GOOGLE SITE VERIFICATION -->
+  <meta name="google-site-verification" content="mDwrxOftdAUR67TsGW5uzKzsTwXPtdYEcsr7FxGh5rY" />
+  <meta name="google-site-verification" content="1mkXmBzvVoWXK-j6tBjO9a3lAkh6rUeDTUUQqX8y97Q" />
+
+  <meta name="description"
+        content="Lakvanta Technologies — creators of elitePDF, a premium PDF editor for creating, editing, scanning, signing and organizing documents. Available on the App Store." />
+
+  <link rel="icon" href="/logo.png" />
+
+  <!-- FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+
+  <style>
+    :root {
+      --primary: #ff4b5c;
+      --primary-soft: rgba(255, 75, 92, 0.16);
+      --primary-soft-strong: rgba(255, 75, 92, 0.28);
+      --accent: #ff8a5c;
+      --accent-soft: rgba(255, 138, 92, 0.24);
+      --dark: #05040a;
+      --bg: #060712;
+      --bg-soft: #0a0c18;
+      --border-subtle: rgba(148, 163, 184, 0.45);
+      --text: #e5e7f5;
+      --muted: #9ca3c7;
+      --muted-soft: rgba(148, 163, 184, 0.15);
+      --card-bg: rgba(15, 23, 42, 0.85);
+      --radius-lg: 18px;
+      --radius-full: 999px;
+      --shadow-soft: 0 18px 55px rgba(15, 23, 42, 0.55);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255, 132, 150, 0.18), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(88, 101, 242, 0.20), transparent 60%),
+        linear-gradient(145deg, #05030a, #050814 45%, #050513);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* LAYOUT */
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* STICKY NAV */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to bottom, rgba(5, 7, 20, 0.98), rgba(5, 7, 22, 0.85));
+      border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      object-fit: contain;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.7);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-text span:first-child {
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-text span:last-child {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      font-weight: 500;
+      color: var(--muted);
+      position: relative;
+      padding: 4px 0;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 999px;
+      transition: width .22s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .btn-nav {
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      background: linear-gradient(120deg, var(--primary), var(--accent));
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 16px 32px rgba(255, 75, 92, 0.55);
+      font-size: 13px;
+      white-space: nowrap;
+      border: none;
+    }
+
+    .btn-nav:hover {
+      transform: translateY(-2px);
+    }
+
+    .nav-toggle {
+      display: none;
+      border: none;
+      background: transparent;
+      font-size: 22px;
+      color: #e5e7f5;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    section {
+      scroll-margin-top: 90px;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 32px 0 70px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.8fr);
+      gap: 40px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+      background: rgba(15, 23, 42, 0.88);
+      color: var(--muted);
+      margin-bottom: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .pill span.highlight {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .hero h1 {
+      font-size: 40px;
+      line-height: 1.1;
+      letter-spacing: -0.05em;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(120deg, #ff7b73, #ffd089);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 20px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .hero-tag {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      background: var(--muted-soft);
+      color: var(--muted);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 22px;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 22px 45px rgba(255, 75, 92, 0.7);
+      border: none;
+    }
+
+    .btn-primary span.icon {
+      margin-left: 8px;
+      font-size: 15px;
+    }
+
+    .btn-ghost {
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 12px;
+      border-radius: var(--radius-full);
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      color: var(--muted);
+    }
+
+    .hero-footnote {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* Hero right card */
+    .hero-card {
+      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 55%),
+                  var(--card-bg);
+      border-radius: 26px;
+      padding: 22px 22px 20px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 60%);
+      top: -40px;
+      right: -30px;
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .hero-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-card-badge {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .hero-card h2 {
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .hero-card p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .hero-card-list {
+      list-style: none;
+      margin-bottom: 12px;
+      font-size: 13px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-card-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .hero-card-list li span.dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: var(--primary);
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+
+    .hero-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--muted);
+      position: relative;
+      z-index: 1;
+    }
+
+    .small-pill {
+      padding: 4px 8px;
+      border-radius: var(--radius-full);
+      background: rgba(15, 23, 42, 0.86);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 10px;
+    }
+
+    /* SECTIONS BASE */
+    .section {
+      padding: 40px 0;
+    }
+
+    .section-heading {
+      font-size: 22px;
+      margin-bottom: 6px;
+      letter-spacing: -0.03em;
+    }
+
+    .section-tagline {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.2fr);
+      gap: 26px;
+      align-items: flex-start;
+    }
+
+    .card,
+    .glass-card {
+      background: rgba(15, 23, 42, 0.86);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      padding: 22px 20px;
+      font-size: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      backdrop-filter: blur(14px);
+    }
+
+    .glass-card {
+      background: linear-gradient(145deg, rgba(15,23,42,0.9), rgba(15,23,42,0.78));
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 26px 70px rgba(15, 23, 42, 0.95);
+      border-color: var(--primary-soft-strong);
+      background: linear-gradient(145deg, rgba(15,23,42,0.92), rgba(22,30,54,0.98));
+    }
+
+    .card h3,
+    .glass-card h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .card p,
+    .glass-card p {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .list-dash {
+      list-style: none;
+      margin-top: 8px;
+    }
+
+    .list-dash li {
+      margin-bottom: 5px;
+      padding-left: 16px;
+      position: relative;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .list-dash li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+    }
+
+    /* FEATURE GRID */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-top: 8px;
+    }
+
+    .feature-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .feature-pill {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      font-size:11px;
+      padding:4px 10px;
+      border-radius:999px;
+      background:var(--muted-soft);
+      color:var(--muted);
+      border:1px solid rgba(148,163,184,.4);
+      margin-top:6px;
+    }
+
+    /* LEGAL CARD */
+    .legal-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      padding: 22px 20px;
+      font-size: 13px;
+      color: var(--muted);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      backdrop-filter: blur(14px);
+    }
+
+    .legal-card h3 {
+      font-size: 16px;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .legal-card h4 {
+      font-size: 14px;
+      margin-top: 14px;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .legal-card ul {
+      padding-left: 18px;
+      margin: 4px 0 8px;
+    }
+
+    .legal-card li {
+      margin-bottom: 4px;
+    }
+
+    /* COMPARISON */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: minmax(0,1.2fr) minmax(0,1fr);
+      gap: 22px;
+      margin-top: 10px;
+    }
+
+    .comparison-card {
+      background: rgba(15,23,42,0.95);
+      border-radius: 16px;
+      padding: 18px 16px;
+      border: 1px solid rgba(148,163,184,0.45);
+      font-size: 13px;
+    }
+
+    .comparison-title {
+      font-size: 14px;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .comparison-tag {
+      display:inline-flex;
+      padding:3px 8px;
+      border-radius:999px;
+      font-size:10px;
+      background:var(--muted-soft);
+      color:var(--muted);
+      border:1px solid rgba(148,163,184,.4);
+      margin-bottom:6px;
+    }
+
+    /* TESTIMONIALS */
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 10px;
+    }
+
+    .testimonial-card {
+      background: rgba(15,23,42,0.9);
+      border-radius: 18px;
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(148,163,184,0.35);
+      font-size: 13px;
+      color: var(--muted);
+      backdrop-filter: blur(10px);
+    }
+
+    .testimonial-card strong {
+      color: var(--text);
+    }
+
+    .quote-mark {
+      font-size: 20px;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    /* CONTACT / FOOTER */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 24px;
+    }
+
+    .contact-item {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .contact-item strong {
+      display: block;
+      font-size: 13px;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .contact-highlight {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .contact-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: 11px;
+      margin-bottom: 12px;
+    }
+
+    footer {
+      padding: 18px 0 24px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 860px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-card {
+        order: -1;
+      }
+      .grid-2,
+      .contact-grid,
+      .comparison-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-links {
+        position: absolute;
+        right: 20px;
+        top: 58px;
+        background: rgba(7, 10, 24, 0.98);
+        border-radius: 16px;
+        box-shadow: var(--shadow-soft);
+        padding: 10px 14px;
+        flex-direction: column;
+        align-items: flex-start;
+        min-width: 180px;
+        display: none;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .btn-nav {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <img src="/logo.png" alt="elitePDF Logo" class="brand-logo" />
+        <div class="brand-text">
+          <span>Lakvanta Technologies</span>
+          <span>Creators of elitePDF</span>
+        </div>
+      </div>
+
+      <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleNav()">☰</button>
+
+      <nav class="nav-links" id="nav-links">
+        <a href="#top">Home</a>
+        <a href="#about">About</a>
+        <a href="#products">Products</a>
+        <a href="#features">Features</a>
+        <a href="#comparison">Comparison</a>
+        <a href="#testimonials">Stories</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#terms">Terms</a>
+        <a href="#contact">Contact</a>
+
+        <a href="https://apps.apple.com/app/id6756133125"
+           target="_blank"
+           class="btn-nav">
+          Get elitePDF
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="pill">
+            <span class="highlight">Lakvanta Technologies</span>
+            <span>Focused on one thing: documents.</span>
+          </div>
+          <h1>
+            Smart, fast & focused.<br />
+            One flagship product — <span>elitePDF</span>.
+          </h1>
+          <p class="hero-subtitle">
+            A premium PDF editor designed for professionals, students, lawyers and teams
+            who live in documents all day. Clean UI, powerful tools, privacy-first.
+          </p>
+
+          <div class="hero-tags">
+            <span class="hero-tag">PDF editing & annotation</span>
+            <span class="hero-tag">Scanning & cleanup</span>
+            <span class="hero-tag">Sign & fill forms</span>
+            <span class="hero-tag">Cloud integrations</span>
+            <span class="hero-tag">Made in India</span>
+          </div>
+
+          <div class="hero-actions">
+            <a class="btn-primary"
+               href="https://apps.apple.com/app/id6756133125"
+               target="_blank">
+              Download elitePDF
+              <span class="icon">➜</span>
+            </a>
+            <a href="#product" class="btn-ghost">
+              Learn more about elitePDF
+            </a>
+          </div>
+
+          <div class="hero-footnote">
+            Zero ads. No spam. Your PDFs stay yours. Crafted by Lakvanta Technologies.
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <div class="hero-card-header">
+            <img src="/logo.png" alt="elitePDF Icon" class="brand-logo" style="width:44px;height:44px;border-radius:16px;" />
+            <div>
+              <div class="hero-card-badge">Flagship product</div>
+              <h2>elitePDF — PDF Editor</h2>
+              <p>Scan, edit, sign and organize PDFs in one beautifully designed workspace.</p>
+            </div>
+          </div>
+
+          <ul class="hero-card-list">
+            <li><span class="dot"></span><span>Create PDFs from camera, gallery or files</span></li>
+            <li><span class="dot"></span><span>Edit text, highlight, annotate & comment</span></li>
+            <li><span class="dot"></span><span>Merge, split, reorder & rotate pages</span></li>
+            <li><span class="dot"></span><span>Fill & sign forms securely</span></li>
+            <li><span class="dot"></span><span>Connect iCloud, Google Drive, Dropbox & OneDrive</span></li>
+          </ul>
+
+          <div class="hero-card-footer">
+            <span class="small-pill">Available on the App Store</span>
+            <span>Support: info.elitepdf@gmail.com</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="container">
+        <h2 class="section-heading">About Lakvanta Technologies</h2>
+        <p class="section-tagline">
+          A focused product studio, building deep quality into a single flagship app — elitePDF.
+        </p>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Who we are</h3>
+            <p>
+              Lakvanta Technologies is a small, craft-driven IT company dedicated to clean,
+              reliable and privacy-respecting tools. Instead of launching dozens of half-finished
+              products, we pour our energy into doing one thing extremely well:
+              <strong>document workflows</strong>.
+            </p>
+            <ul class="list-dash">
+              <li>Based in India, serving users worldwide</li>
+              <li>Deep iOS and native technology expertise</li>
+              <li>Built by developers who use PDFs daily themselves</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>How we think</h3>
+            <p>
+              We believe modern tools should be:
+            </p>
+            <ul class="list-dash">
+              <li><strong>Fast</strong> — no lag, no clutter, no bloat</li>
+              <li><strong>Focused</strong> — solve the real jobs-to-be-done</li>
+              <li><strong>Respectful</strong> — your data is not our product</li>
+              <li><strong>Beautiful</strong> — clean, calm UI that gets out of the way</li>
+            </ul>
+            <p style="margin-top:8px;color:var(--muted);">
+              elitePDF is our expression of these principles in the world of documents.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- elitePDF PRODUCT -->
+    <section id="product" class="section">
+      <div class="container">
+        <h2 class="section-heading">elitePDF — Our Flagship Document Engine</h2>
+        <p class="section-tagline">
+          A high-performance PDF toolkit engineered for professionals, businesses and creators who
+          need precision and speed.
+        </p>
+
+        <div class="grid-2">
+
+          <!-- LEFT: WHY -->
+          <div class="glass-card">
+            <h3>Why elitePDF exists</h3>
+            <p>
+              Documents run your life — contracts, invoices, notes, assignments, forms and reports.
+              Most PDF apps are cluttered, slow or filled with ads. We built <strong>elitePDF</strong>
+              to feel like the opposite:
+            </p>
+
+            <ul class="list-dash">
+              <li>Lightning-fast and iOS-native performance</li>
+              <li>Minimal, distraction-free interface</li>
+              <li>Privacy-first: your documents stay on your device</li>
+              <li>Single app for scanning, editing, signing & sharing</li>
+            </ul>
+
+            <p style="margin-top:10px;color:var(--muted);">
+              If you’ve ever thought, “I wish working with PDFs felt less painful,”
+              elitePDF is built exactly for you.
+            </p>
+          </div>
+
+          <!-- RIGHT: WORKSPACE -->
+          <div class="glass-card">
+            <h3>A complete PDF workspace</h3>
+            <p>Everything you need in one place:</p>
+            <ul class="list-dash">
+              <li>Create PDFs from camera, gallery, documents or blank canvas</li>
+              <li>Scan with automatic edge detection & smart cleanup</li>
+              <li>Edit text, highlight, underline, draw and comment</li>
+              <li>Merge, split, extract, and reorder pages with ease</li>
+              <li>Add digital signatures & fill forms without printing</li>
+              <li>Secure files with passwords and permission settings</li>
+              <li>Connect iCloud, Google Drive, Dropbox and OneDrive</li>
+            </ul>
+            <span class="feature-pill">Built for everyday heavy PDF users</span>
+          </div>
+        </div>
+
+        <!-- MINI CASE STUDY -->
+        <div class="legal-card" style="margin-top:30px;">
+          <h3>Mini Case Study — 30 minutes saved on every contract</h3>
+          <p>
+            A freelance lawyer from Delhi used to:
+          </p>
+          <ul>
+            <li>Scan documents with one app</li>
+            <li>Clean and crop in another app</li>
+            <li>Merge files using a web tool</li>
+            <li>Sign and email everything manually</li>
+          </ul>
+
+          <p style="margin-top:8px;">
+            After switching to <strong>elitePDF</strong>, her workflow now happens in a single app:
+          </p>
+          <ul>
+            <li>Scan & auto-cleanup → a few seconds</li>
+            <li>Drag to reorder & merge → seconds</li>
+            <li>Add signature once, reuse everywhere</li>
+            <li>Share as flattened PDF directly from the app</li>
+          </ul>
+
+          <p style="margin-top:10px;">
+            Result: <strong>~30 minutes saved per contract</strong>, fewer errors and no more
+            risky web uploads.
+          </p>
+        </div>
+
+        <!-- CTA -->
+        <div style="margin-top:24px;text-align:center;">
+          <a class="btn-primary"
+             href="https://apps.apple.com/app/id6756133125"
+             target="_blank">
+            Try elitePDF on the App Store
+            <span class="icon">➜</span>
+          </a>
+        </div>
+      </div>
+    </section>
+<!-- PRODUCTS HUB -->
+<section id="products" class="section">
+  <div class="container">
+    <h2 class="section-heading">Our Products</h2>
+    <p class="section-tagline">
+      Carefully crafted apps by Lakvanta Technologies — each focused on doing one job extremely well.
+    </p>
+
+    <div class="feature-grid">
+
+      <!-- elitePDF -->
+      <div class="glass-card">
+        <span class="feature-label">DOCUMENTS</span>
+        <h3>elitePDF</h3>
+        <p>
+          A premium PDF editor designed for professionals, students and teams who work with documents daily.
+        </p>
+        <ul class="list-dash">
+          <li>Scan, edit, annotate & sign PDFs</li>
+          <li>Merge, split, reorder & compress</li>
+          <li>Cloud integrations & privacy-first design</li>
+        </ul>
+        <div style="margin-top:12px;">
+          <a class="btn-ghost" href="#product">
+            Learn more
+          </a>
+        </div>
+      </div>
+
+      <!-- Measure AR -->
+      <div class="glass-card">
+        <span class="feature-label">MEASUREMENT</span>
+        <h3>Measure AR</h3>
+        <p>
+          Measure real-world distances, areas and custom shapes using your iPhone camera powered by AR.
+        </p>
+        <ul class="list-dash">
+          <li>Line, area & polygon measurement</li>
+          <li>Metric & imperial units</li>
+          <li>Save results with visuals</li>
+        </ul>
+        <div style="margin-top:12px;">
+          <a class="btn-ghost" href="/measure">
+            Learn more
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+    <!-- FEATURES HIGHLIGHT -->
+    <section id="features" class="section">
+      <div class="container">
+        <h2 class="section-heading">Designed for real-world work</h2>
+        <p class="section-tagline">
+          Not just another PDF viewer. elitePDF is tuned for people who live in documents: lawyers,
+          students, creators, accountants, founders and teams.
+        </p>
+
+        <div class="feature-grid">
+          <div class="glass-card">
+            <span class="feature-label">FOR PROFESSIONALS</span>
+            <h3>Contracts, NDAs & invoices</h3>
+            <p>
+              Quickly mark up contracts, sign NDAs, add comments and send polished PDFs to clients.
+              No printing, scanning or juggling ten different apps.
+            </p>
+          </div>
+
+          <div class="glass-card">
+            <span class="feature-label">FOR STUDENTS</span>
+            <h3>Notes, handouts & assignments</h3>
+            <p>
+              Highlight PDFs, annotate lecture slides, add diagrams and submit scanned assignments
+              from the same place.
+            </p>
+          </div>
+
+          <div class="glass-card">
+            <span class="feature-label">FOR TEAMS</span>
+            <h3>Organized document library</h3>
+            <p>
+              Keep proposals, agreements and internal docs neatly organized.
+              Use cloud integrations to sync safely across devices.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPARISON -->
+    <section id="comparison" class="section">
+      <div class="container">
+        <h2 class="section-heading">How elitePDF compares</h2>
+        <p class="section-tagline">
+          Built to feel lighter than “big” PDF tools, but more powerful than basic free viewers.
+        </p>
+
+        <div class="comparison-grid">
+          <div class="comparison-card">
+            <span class="comparison-tag">Where elitePDF shines</span>
+            <div class="comparison-title">elitePDF</div>
+            <ul class="list-dash">
+              <li>Fast, clean native iOS app</li>
+              <li>No ads, no noisy upsell banners</li>
+              <li>Focused feature set for everyday work</li>
+              <li>Privacy-first: files stay with you</li>
+              <li>Simple, predictable subscription model</li>
+            </ul>
+          </div>
+
+          <div class="comparison-card">
+            <span class="comparison-tag">Typical alternatives</span>
+            <div class="comparison-title">Big desktop tools & random web converters</div>
+            <ul class="list-dash">
+              <li>Heavy, slow or too complex for simple tasks</li>
+              <li>Banner ads and cluttered interfaces</li>
+              <li>Files uploaded to servers you don’t control</li>
+              <li>Confusing pricing and hidden limits</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="section">
+      <div class="container">
+        <h2 class="section-heading">What users say</h2>
+        <p class="section-tagline">
+          Early users across different professions are already using elitePDF to simplify their day.
+        </p>
+
+        <div class="testimonial-grid">
+          <div class="testimonial-card">
+            <div class="quote-mark">“</div>
+            <p>
+              I moved all my contract workflows to elitePDF. It’s the first time a PDF app has
+              actually made me faster instead of slower.
+            </p>
+            <p style="margin-top:8px;">
+              <strong>Freelance Lawyer</strong><br/>
+              Delhi, India
+            </p>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="quote-mark">“</div>
+            <p>
+              Scanning handwritten notes, annotating slides and exporting as a single PDF —
+              elitePDF handles my entire semester.
+            </p>
+            <p style="margin-top:8px;">
+              <strong>Engineering Student</strong><br/>
+              Bengaluru, India
+            </p>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="quote-mark">“</div>
+            <p>
+              We store agreements in Drive but edit everything through elitePDF. The app’s speed
+              and simplicity is exactly what we needed.
+            </p>
+            <p style="margin-top:8px;">
+              <strong>Small Business Owner</strong><br/>
+              Remote-first team
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRIVACY POLICY (BRIEF, FULL IN privacy.html) -->
+    <section id="privacy" class="section">
+      <div class="container">
+        <h2 class="section-heading">Privacy Policy — elitePDF</h2>
+        <p class="section-tagline">
+          A quick overview of how we handle your data. For full details, see the standalone Privacy page.
+        </p>
+
+        <div class="legal-card">
+          <h3>Summary</h3>
+          <p>
+            elitePDF is built with a privacy-first mindset. Our core principles:
+          </p>
+          <ul>
+            <li>Your PDFs and documents stay on your device or your own cloud accounts.</li>
+            <li>We don’t sell your data, and we don’t inspect the content of your files.</li>
+            <li>Analytics, where used, are focused on crashes and performance — not your content.</li>
+          </ul>
+
+          <h4>Files & Documents</h4>
+          <p>
+            Files are processed on-device whenever possible. If you connect platforms like Google Drive,
+            Dropbox, OneDrive or iCloud, your documents move between your device and those providers
+            under their own privacy policies.
+          </p>
+
+          <h4>Support & Contact</h4>
+          <p>
+            If you email us at <a href="mailto:info.elitepdf@gmail.com">info.elitepdf@gmail.com</a>,
+            we may store your message and optional logs/screenshots to help resolve your issue.
+          </p>
+
+          <p style="margin-top:10px;">
+            For the complete, formal Privacy Policy, open:
+            <br />
+            <a href="/privacy.html">elitePDF Privacy Policy</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TERMS & CONDITIONS (BRIEF, FULL IN terms.html) -->
+    <section id="terms" class="section">
+      <div class="container">
+        <h2 class="section-heading">Terms & Conditions — elitePDF</h2>
+        <p class="section-tagline">
+          A short summary of how elitePDF should be used. For full legal text, see Terms page.
+        </p>
+
+        <div class="legal-card">
+          <h3>Summary</h3>
+          <p>
+            By using elitePDF, you agree to:
+          </p>
+          <ul>
+            <li>Use the app only for lawful purposes</li>
+            <li>Respect copyrights and third-party rights</li>
+            <li>Not misuse, hack or abuse the Service</li>
+          </ul>
+
+          <h4>Subscriptions</h4>
+          <p>
+            elitePDF may offer premium features through in-app purchases.
+            All billing and subscription management is handled by Apple through your Apple ID.
+          </p>
+
+          <h4>No Warranty & Limitation of Liability</h4>
+          <p>
+            elitePDF is provided “as is”. We do not guarantee that it will be free of bugs or
+            interruptions. To the maximum extent permitted by law, Lakvanta Technologies is not
+            liable for any loss of data or indirect damages resulting from the use of the App.
+          </p>
+
+          <p style="margin-top:10px;">
+            For full Terms & Conditions, open:
+            <br />
+            <a href="/terms.html">elitePDF Terms & Conditions</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT / COMPANY INFO -->
+    <section id="contact" class="section">
+      <div class="container">
+        <h2 class="section-heading">Contact & Company Details</h2>
+        <p class="section-tagline">
+          Get in touch with Lakvanta Technologies regarding elitePDF, partnerships or support.
+        </p>
+
+        <div class="contact-grid">
+          <div class="card">
+            <div class="contact-badge">
+              Lakvanta Technologies · elitePDF Support
+            </div>
+            <div class="contact-highlight">Let’s talk documents.</div>
+            <p style="color:var(--muted); margin-bottom: 12px;">
+              Whether you’re reviewing contracts, scanning paperwork, or organizing a library of PDFs,
+              we want elitePDF to feel sharp, reliable and calm. If something feels off or you have
+              ideas, reach out — it genuinely helps.
+            </p>
+
+            <div class="contact-item" style="margin-top: 10px;">
+              <strong>Email</strong>
+              <a href="mailto:info.elitepdf@gmail.com">info.elitepdf@gmail.com</a>
+            </div>
+
+            <div class="contact-item" style="margin-top: 8px;">
+              <strong>Phone</strong>
+              <a href="tel:+919559097135">+91 95590 97135</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Quick links</h3>
+            <div class="contact-item" style="margin-top: 10px;">
+              <strong>Download elitePDF</strong>
+              <a href="https://apps.apple.com/app/id6756133125"
+                 target="_blank">
+                Open on the App Store
+              </a>
+            </div>
+
+            <div class="contact-item" style="margin-top: 12px;">
+              <strong>Legal</strong>
+              <div>
+                <a href="/privacy.html" target="_blank">Privacy Policy</a> ·
+                <a href="/terms.html" target="_blank">Terms & Conditions</a>
+              </div>
+            </div>
+
+            <div class="contact-item" style="margin-top: 12px;">
+              <strong>Company</strong>
+              <div>Lakvanta Technologies</div>
+              <div style="font-size:12px; color:var(--muted); margin-top:4px;">
+                Building focused tools for the modern document-driven world.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    © <span id="year"></span> Lakvanta Technologies · elitePDF — All Rights Reserved
+  </footer>
+</div>
+
+<script>
+  function toggleNav() {
+    var nav = document.getElementById('nav-links');
+    nav.classList.toggle('open');
+  }
+
+  // Close mobile nav on link click
+  document.addEventListener('click', function (e) {
+    var nav = document.getElementById('nav-links');
+    if (!nav) return;
+    if (e.target.tagName === 'A' && nav.classList.contains('open') && e.target.closest('#nav-links')) {
+      nav.classList.remove('open');
+    }
+  });
+
+  // Dynamic year
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
