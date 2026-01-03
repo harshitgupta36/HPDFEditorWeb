@@ -5,18 +5,24 @@
 <title>Bhakti Sangrah — श्रद्धा • भक्ति • शांति</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Bhakti Sangrah is a divine devotional app offering mantras, aartis, chalisas and spiritual reading for peace and devotion.">
+<meta name="description" content="Bhakti Sangrah is a divine devotional iOS app offering mantras, aartis, chalisas and spiritual reading for peace and devotion.">
 
-<!-- THEME (BhaktiTheme inspired) -->
+<!-- ================= URL CONSTANTS ================= -->
+<script>
+  const APP_STORE_URL = "https://apps.apple.com/app/id6757310047";
+  const CONTACT_EMAIL = "mailto:vighnablitz@gmail.com";
+</script>
+
+<!-- ================= THEME ================= -->
 <style>
 :root {
   --bg-top: #FDF6E6;
   --bg-bottom: #F7EED9;
-  --title: #40301A;
+  --title: #3B2A17;
   --text: #4A3B2A;
   --muted: rgba(0,0,0,0.55);
   --accent: #C45A1A;
-  --card: rgba(255,255,255,0.72);
+  --card: rgba(255,255,255,0.75);
 }
 
 * { box-sizing: border-box; }
@@ -27,15 +33,14 @@ body {
                "Segoe UI", Roboto, sans-serif;
   background: linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
   color: var(--text);
-  scroll-behavior: smooth;
 }
 
-/* ---------- NAV ---------- */
+/* ================= NAV ================= */
 nav {
   position: sticky;
   top: 0;
-  backdrop-filter: blur(8px);
-  background: rgba(253,246,230,0.85);
+  backdrop-filter: blur(10px);
+  background: rgba(253,246,230,0.88);
   border-bottom: 1px solid rgba(0,0,0,0.05);
   z-index: 10;
 }
@@ -50,9 +55,17 @@ nav {
 }
 
 .brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 17px;
   color: var(--title);
+}
+
+.brand img {
+  width: 34px;
+  height: 34px;
 }
 
 .menu a {
@@ -66,105 +79,110 @@ nav {
   color: var(--accent);
 }
 
-/* ---------- HERO ---------- */
+/* ================= HERO ================= */
 header {
   max-width: 1200px;
   margin: auto;
-  padding: 110px 24px 90px;
+  padding: 120px 24px 90px;
   text-align: center;
+}
+
+.hero-logo {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 32px;
+
+  border-radius: 28px;                 /* 👈 smooth rounded corners */
+  object-fit: cover;
+
+  box-shadow:
+    0 20px 45px rgba(0,0,0,0.18),
+    0 6px 16px rgba(0,0,0,0.12);
 }
 
 header h1 {
   font-size: 52px;
   font-weight: 600;
   color: var(--title);
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 header p {
   font-size: 17px;
   color: var(--muted);
-  max-width: 620px;
+  max-width: 640px;
   margin: auto;
 }
 
 .hero-actions {
-  margin-top: 34px;
+  margin-top: 38px;
 }
 
 .btn-primary {
   display: inline-block;
-  padding: 16px 34px;
-  border-radius: 34px;
+  padding: 16px 36px;
+  border-radius: 36px;
   background: var(--accent);
   color: #fff;
   font-size: 15px;
   font-weight: 500;
   text-decoration: none;
-  box-shadow: 0 12px 30px rgba(196,90,26,0.35);
+  box-shadow: 0 14px 36px rgba(196,90,26,0.35);
 }
 
 .btn-primary:hover {
   opacity: 0.9;
 }
 
-/* ---------- SECTIONS ---------- */
+/* ================= SECTIONS ================= */
 section {
   max-width: 1200px;
   margin: auto;
-  padding: 70px 24px;
+  padding: 80px 24px;
 }
 
 .card {
   background: var(--card);
-  border-radius: 26px;
-  padding: 50px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  border-radius: 28px;
+  padding: 56px;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.08);
 }
 
 h2 {
-  font-size: 34px;
+  font-size: 36px;
   color: var(--title);
-  margin-bottom: 18px;
+  margin-bottom: 22px;
 }
 
 p {
   font-size: 15px;
-  line-height: 1.8;
+  line-height: 1.85;
 }
 
-/* ---------- FEATURES ---------- */
-.features {
+/* ================= GRID ================= */
+.grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 26px;
-  margin-top: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 28px;
+  margin-top: 44px;
 }
 
-.feature {
-  background: rgba(255,255,255,0.6);
-  border-radius: 20px;
-  padding: 28px;
+.item {
+  background: rgba(255,255,255,0.65);
+  border-radius: 22px;
+  padding: 30px;
 }
 
-.feature h3 {
+.item h3 {
   font-size: 17px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   color: var(--title);
 }
 
-/* ---------- USE CASES ---------- */
-.usecases {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 26px;
-  margin-top: 40px;
-}
-
-/* ---------- FOOTER ---------- */
+/* ================= FOOTER ================= */
 footer {
   text-align: center;
-  padding: 60px 24px 40px;
+  padding: 70px 24px 40px;
   font-size: 13px;
   color: rgba(0,0,0,0.45);
 }
@@ -178,10 +196,13 @@ footer a {
 
 <body>
 
-<!-- NAV -->
+<!-- ================= NAV ================= -->
 <nav>
   <div class="nav-inner">
-    <div class="brand">ॐ Bhakti Sangrah</div>
+    <div class="brand">
+      <img src="/bhaktiSangrah/logo.png" alt="Bhakti Sangrah Logo">
+      Bhakti Sangrah
+    </div>
     <div class="menu">
       <a href="#features">Features</a>
       <a href="#usecases">Use-Cases</a>
@@ -191,99 +212,100 @@ footer a {
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- ================= HERO ================= -->
 <header>
+  <img src="/bhaktiSangrah/logo.png" class="hero-logo" alt="Bhakti Sangrah App Icon">
+
   <h1>Bhakti Sangrah</h1>
   <p>
-    A sacred space for devotion, peace, and spiritual focus.
-    Designed to bring mantras, aartis, and chalisas
-    into everyday life with divine calm.
+    A sacred digital space for devotion, peace, and spiritual focus —
+    bringing mantras, aartis, and chalisas into daily life with divine calm.
   </p>
 
   <div class="hero-actions">
-    <a href="#download" class="btn-primary">Download on App Store</a>
+    <a class="btn-primary" onclick="window.open(APP_STORE_URL)">
+      Download on App Store
+    </a>
   </div>
 </header>
 
-<!-- FEATURES -->
+<!-- ================= FEATURES ================= -->
 <section id="features">
   <div class="card">
     <h2>Features</h2>
-    <div class="features">
-      <div class="feature">
+    <div class="grid">
+      <div class="item">
         <h3>Mantras & Chants</h3>
-        <p>Authentic mantras presented in a calm, readable experience.</p>
+        <p>Authentic sacred mantras in a serene reading experience.</p>
       </div>
-      <div class="feature">
+      <div class="item">
         <h3>Aarti & Chalisa</h3>
-        <p>Daily devotional readings crafted for focus and peace.</p>
+        <p>Daily devotional texts designed for focus and devotion.</p>
       </div>
-      <div class="feature">
+      <div class="item">
         <h3>Reader Mode</h3>
         <p>Distraction-free spiritual reading with elegant typography.</p>
       </div>
-      <div class="feature">
+      <div class="item">
         <h3>Offline Access</h3>
-        <p>Devotion without dependence on network connectivity.</p>
+        <p>Devotion that works even without internet.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- USE CASES -->
+<!-- ================= USE CASES ================= -->
 <section id="usecases">
   <div class="card">
     <h2>Use-Cases</h2>
-    <div class="usecases">
-      <div class="feature">
+    <div class="grid">
+      <div class="item">
         <h3>Daily Puja</h3>
-        <p>Morning and evening rituals with guided content.</p>
+        <p>Morning and evening rituals with ease.</p>
       </div>
-      <div class="feature">
+      <div class="item">
         <h3>Meditation</h3>
-        <p>Silent reading and chanting for inner calm.</p>
+        <p>Silent chanting and focused reading.</p>
       </div>
-      <div class="feature">
+      <div class="item">
         <h3>Festivals & Vrat</h3>
-        <p>Access relevant devotional texts on auspicious days.</p>
+        <p>Relevant devotional content on auspicious days.</p>
       </div>
-      <div class="feature">
+      <div class="item">
         <h3>Spiritual Learning</h3>
-        <p>Understand and absorb sacred verses with clarity.</p>
+        <p>Understand sacred verses with clarity.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PRIVACY -->
+<!-- ================= PRIVACY ================= -->
 <section id="privacy">
   <div class="card">
     <h2>Privacy</h2>
     <p>
       Bhakti Sangrah respects your privacy.
-      We do not collect personal data, do not require account creation,
-      and do not track users.
-      Limited anonymous diagnostics may be used only to improve stability.
+      No accounts, no tracking, no personal data collection.
+      Only minimal anonymous diagnostics for app stability.
     </p>
     <p>
-      For details, contact:
-      <br>📧 <a href="mailto:vighnablitz@gmail.com">vighnablitz@gmail.com</a>
+      Contact:
+      <br>📧 <a onclick="window.location=CONTACT_EMAIL">vighnablitz@gmail.com</a>
     </p>
   </div>
 </section>
 
-<!-- DOWNLOAD -->
+<!-- ================= DOWNLOAD ================= -->
 <section id="download">
   <div class="card" style="text-align:center">
     <h2>Download Bhakti Sangrah</h2>
     <p>
       Begin your devotional journey with a calm,
-      respectful, and beautifully designed spiritual app.
+      respectful, and beautifully crafted spiritual app.
     </p>
 
     <div class="hero-actions">
-      <!-- Replace with real App Store link -->
-      <a href="https://apps.apple.com/" class="btn-primary">
+      <a class="btn-primary" onclick="window.open(APP_STORE_URL)">
         Download on App Store
       </a>
     </div>
