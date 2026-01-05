@@ -5,24 +5,35 @@
 <title>Bhakti Sangrah — श्रद्धा • भक्ति • शांति</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Bhakti Sangrah is a divine devotional iOS app offering mantras, aartis, chalisas and spiritual reading for peace and devotion.">
+<meta name="description" content="Bhakti Sangrah is a calm devotional iOS app for mantras, aartis, chalisas, and spiritual reading with focus, silence, and peace.">
 
-<!-- ================= URL CONSTANTS ================= -->
+<!-- ================= JS CONSTANTS ================= -->
 <script>
   const APP_STORE_URL = "https://apps.apple.com/app/id6757310047";
-  const CONTACT_EMAIL = "mailto:vighnablitz@gmail.com";
+  const CONTACT_EMAIL = "mailto:info.elitepdf@gmail.com";
 </script>
 
-<!-- ================= THEME ================= -->
 <style>
+/* ================= DESIGN TOKENS ================= */
 :root {
-  --bg-top: #FDF6E6;
-  --bg-bottom: #F7EED9;
-  --title: #3B2A17;
-  --text: #4A3B2A;
+  --bg-top: #fff6e3;
+  --bg-bottom: #f3e8d1;
+
+  --glass-bg: rgba(255,255,255,0.55);
+  --glass-border: rgba(255,255,255,0.35);
+
+  --title: #3b2a17;
+  --text: #4a3b2a;
   --muted: rgba(0,0,0,0.55);
-  --accent: #C45A1A;
-  --card: rgba(255,255,255,0.75);
+
+  --accent: #c45a1a;
+  --accent-glow: rgba(196,90,26,0.45);
+
+  --radius-lg: 32px;
+  --radius-md: 22px;
+
+  --shadow-soft: 0 30px 80px rgba(0,0,0,0.12);
+  --shadow-float: 0 14px 34px rgba(0,0,0,0.14);
 }
 
 * { box-sizing: border-box; }
@@ -31,18 +42,20 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
                "Segoe UI", Roboto, sans-serif;
-  background: linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
   color: var(--text);
+  background:
+    radial-gradient(1200px 600px at 20% -10%, #ffffffcc, transparent),
+    linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
 }
 
 /* ================= NAV ================= */
 nav {
   position: sticky;
   top: 0;
-  backdrop-filter: blur(10px);
-  background: rgba(253,246,230,0.88);
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  z-index: 10;
+  z-index: 20;
+  backdrop-filter: blur(16px);
+  background: rgba(255,255,255,0.6);
+  border-bottom: 1px solid var(--glass-border);
 }
 
 .nav-inner {
@@ -57,15 +70,16 @@ nav {
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   font-weight: 600;
   font-size: 17px;
   color: var(--title);
 }
 
 .brand img {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
 }
 
 .menu a {
@@ -75,114 +89,121 @@ nav {
   text-decoration: none;
 }
 
-.menu a:hover {
-  color: var(--accent);
-}
+.menu a:hover { color: var(--accent); }
 
 /* ================= HERO ================= */
 header {
   max-width: 1200px;
   margin: auto;
-  padding: 120px 24px 90px;
+  padding: 130px 24px 90px;
   text-align: center;
 }
 
 .hero-logo {
-  width: 150px;
-  height: 150px;
-  margin-bottom: 32px;
-
-  border-radius: 28px;                 /* 👈 smooth rounded corners */
+  width: 160px;
+  height: 160px;
+  margin-bottom: 36px;
+  border-radius: 36px;
   object-fit: cover;
-
-  box-shadow:
-    0 20px 45px rgba(0,0,0,0.18),
-    0 6px 16px rgba(0,0,0,0.12);
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-soft);
 }
 
 header h1 {
-  font-size: 52px;
+  font-size: 58px;
   font-weight: 600;
   color: var(--title);
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 header p {
-  font-size: 17px;
+  font-size: 18px;
   color: var(--muted);
-  max-width: 640px;
+  max-width: 680px;
   margin: auto;
+  line-height: 1.8;
 }
 
-.hero-actions {
-  margin-top: 38px;
-}
+.hero-actions { margin-top: 44px; }
 
+/* ================= BUTTON ================= */
 .btn-primary {
   display: inline-block;
-  padding: 16px 36px;
-  border-radius: 36px;
-  background: var(--accent);
+  padding: 16px 42px;
+  border-radius: 40px;
+  background: linear-gradient(180deg, #d46a28, var(--accent));
   color: #fff;
   font-size: 15px;
   font-weight: 500;
   text-decoration: none;
-  box-shadow: 0 14px 36px rgba(196,90,26,0.35);
+  box-shadow:
+    0 18px 40px var(--accent-glow),
+    inset 0 1px 0 rgba(255,255,255,0.35);
+  transition: transform .25s ease, box-shadow .25s ease;
 }
 
 .btn-primary:hover {
-  opacity: 0.9;
+  transform: translateY(-3px);
+  box-shadow:
+    0 26px 60px var(--accent-glow),
+    inset 0 1px 0 rgba(255,255,255,0.45);
 }
 
 /* ================= SECTIONS ================= */
 section {
   max-width: 1200px;
   margin: auto;
-  padding: 80px 24px;
+  padding: 90px 24px;
 }
 
 .card {
-  background: var(--card);
-  border-radius: 28px;
-  padding: 56px;
-  box-shadow: 0 24px 70px rgba(0,0,0,0.08);
+  background: var(--glass-bg);
+  backdrop-filter: blur(18px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-border);
+  padding: 60px;
+  box-shadow: var(--shadow-soft);
 }
 
 h2 {
-  font-size: 36px;
+  font-size: 40px;
   color: var(--title);
-  margin-bottom: 22px;
+  margin-bottom: 26px;
 }
 
 p {
   font-size: 15px;
-  line-height: 1.85;
+  line-height: 1.9;
 }
 
 /* ================= GRID ================= */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 28px;
-  margin-top: 44px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 32px;
+  margin-top: 48px;
 }
 
 .item {
-  background: rgba(255,255,255,0.65);
-  border-radius: 22px;
-  padding: 30px;
+  background: rgba(255,255,255,0.6);
+  border-radius: var(--radius-md);
+  padding: 32px;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-float);
 }
 
 .item h3 {
-  font-size: 17px;
-  margin-bottom: 10px;
+  font-size: 18px;
+  margin-bottom: 12px;
   color: var(--title);
 }
 
 /* ================= FOOTER ================= */
 footer {
   text-align: center;
-  padding: 70px 24px 40px;
+  padding: 90px 24px 40px;
   font-size: 13px;
   color: rgba(0,0,0,0.45);
 }
@@ -196,7 +217,6 @@ footer a {
 
 <body>
 
-<!-- ================= NAV ================= -->
 <nav>
   <div class="nav-inner">
     <div class="brand">
@@ -212,14 +232,14 @@ footer a {
   </div>
 </nav>
 
-<!-- ================= HERO ================= -->
 <header>
   <img src="/bhaktiSangrah/logo.png" class="hero-logo" alt="Bhakti Sangrah App Icon">
 
-  <h1>Bhakti Sangrah</h1>
+  <h1>Pause. Breathe. Pray.</h1>
   <p>
-    A sacred digital space for devotion, peace, and spiritual focus —
-    bringing mantras, aartis, and chalisas into daily life with divine calm.
+    A sacred space where devotion slows time and brings inner peace.
+    Read mantras, aartis, and chalisas in a calm, pure,
+    and distraction-free experience.
   </p>
 
   <div class="hero-actions">
@@ -229,81 +249,76 @@ footer a {
   </div>
 </header>
 
-<!-- ================= FEATURES ================= -->
 <section id="features">
   <div class="card">
-    <h2>Features</h2>
+    <h2>What You’ll Find</h2>
     <div class="grid">
       <div class="item">
-        <h3>Mantras & Chants</h3>
-        <p>Authentic sacred mantras in a serene reading experience.</p>
+        <h3>🕉 Sacred Mantras</h3>
+        <p>Sacred words passed through generations, presented with clarity and reverence for daily chanting.</p>
       </div>
       <div class="item">
-        <h3>Aarti & Chalisa</h3>
-        <p>Daily devotional texts designed for focus and devotion.</p>
+        <h3>🪔 Aarti & Chalisa</h3>
+        <p>Complete devotional texts for morning puja, evening prayers, and moments when the heart seeks faith.</p>
       </div>
       <div class="item">
-        <h3>Reader Mode</h3>
-        <p>Distraction-free spiritual reading with elegant typography.</p>
+        <h3>📖 Pure Reader Mode</h3>
+        <p>No ads. No noise. No clutter. Just text, space, and focus.</p>
       </div>
       <div class="item">
-        <h3>Offline Access</h3>
-        <p>Devotion that works even without internet.</p>
+        <h3>🌿 Offline Devotion</h3>
+        <p>Devotion should never depend on a network. Your prayers stay with you, always.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ================= USE CASES ================= -->
 <section id="usecases">
   <div class="card">
-    <h2>Use-Cases</h2>
+    <h2>Moments It Serves</h2>
     <div class="grid">
       <div class="item">
-        <h3>Daily Puja</h3>
-        <p>Morning and evening rituals with ease.</p>
+        <h3>🌅 Morning Stillness</h3>
+        <p>Begin the day grounded, calm, and centered through prayer.</p>
       </div>
       <div class="item">
-        <h3>Meditation</h3>
-        <p>Silent chanting and focused reading.</p>
+        <h3>🌙 Evening Reflection</h3>
+        <p>Slow down, read, and reconnect after a long day.</p>
       </div>
       <div class="item">
-        <h3>Festivals & Vrat</h3>
-        <p>Relevant devotional content on auspicious days.</p>
+        <h3>🧘 Meditation</h3>
+        <p>Read slowly. Chant softly. Sit in silence.</p>
       </div>
       <div class="item">
-        <h3>Spiritual Learning</h3>
-        <p>Understand sacred verses with clarity.</p>
+        <h3>🎉 Festivals & Vrat</h3>
+        <p>Trusted devotional content for auspicious days and fasts.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ================= PRIVACY ================= -->
 <section id="privacy">
   <div class="card">
-    <h2>Privacy</h2>
+    <h2>Privacy & Respect</h2>
     <p>
-      Bhakti Sangrah respects your privacy.
-      No accounts, no tracking, no personal data collection.
-      Only minimal anonymous diagnostics for app stability.
+      Faith is personal. Bhakti Sangrah does not create accounts,
+      does not track users, and does not collect personal data.
+      The app exists only to serve devotion — nothing else.
     </p>
     <p>
-      Contact:
-      <br>📧 <a onclick="window.location=CONTACT_EMAIL">vighnablitz@gmail.com</a>
+      Contact:<br>
+      📧 <a onclick="window.location=CONTACT_EMAIL">info.elitepdf@gmail.com</a>
     </p>
   </div>
 </section>
 
-<!-- ================= DOWNLOAD ================= -->
 <section id="download">
   <div class="card" style="text-align:center">
-    <h2>Download Bhakti Sangrah</h2>
+    <h2>Begin Your Devotional Journey</h2>
     <p>
-      Begin your devotional journey with a calm,
-      respectful, and beautifully crafted spiritual app.
+      If you seek peace more than features, silence more than noise,
+      and devotion more than distraction — Bhakti Sangrah is for you.
     </p>
-
     <div class="hero-actions">
       <a class="btn-primary" onclick="window.open(APP_STORE_URL)">
         Download on App Store
@@ -313,8 +328,8 @@ footer a {
 </section>
 
 <footer>
-  © 2026 Bhakti Sangrah · All rights reserved<br>
-  Built with श्रद्धा • भक्ति • शांति
+  Created with <strong>श्रद्धा</strong> · Guided by <strong>भक्ति</strong> · For inner <strong>शांति</strong><br>
+  © 2026 Bhakti Sangrah
 </footer>
 
 </body>
