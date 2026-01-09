@@ -1,0 +1,14 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "C8LGK9H7J5.com.lakvanta.BhaktiSangrah",
+        "paths": [
+          "/bhaktiSangrah",
+          "/bhaktiSangrah/*"
+        ]
+      }
+    ]
+  }
+}

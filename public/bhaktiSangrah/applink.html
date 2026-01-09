@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bhakti Sangrah – Opening App</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- SEO -->
+  <meta name="description" content="Bhakti Sangrah – Chalisa, Aarti, Bhajan & Daily Devotion." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Bhakti Sangrah" />
+  <meta property="og:description" content="Pure devotion in one place." />
+  <meta property="og:url" content="https://lakvanta.com/bhaktiSangrah" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+
+    body{
+      min-height:100vh;
+      background:radial-gradient(circle at top,#1c1f40,#0a0c1a);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      padding:24px
+    }
+
+    .card{
+      max-width:420px;
+      width:100%;
+      background:rgba(255,255,255,.06);
+      backdrop-filter:blur(18px);
+      border-radius:22px;
+      padding:36px 28px;
+      text-align:center;
+      box-shadow:0 20px 60px rgba(0,0,0,.45)
+    }
+
+    .logo{
+      width:86px;
+      height:86px;
+      margin:0 auto 18px;
+      border-radius:24px;
+      background:linear-gradient(135deg,#ff9d2f,#ff6126);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:34px;
+      font-weight:600;
+      box-shadow:0 14px 34px rgba(255,120,40,.45)
+    }
+
+    h1{font-size:22px;font-weight:600;margin-bottom:8px}
+    p{font-size:14px;opacity:.85;margin-bottom:26px}
+
+    .loader{
+      width:42px;height:42px;
+      border:4px solid rgba(255,255,255,.2);
+      border-top-color:#ff9d2f;
+      border-radius:50%;
+      margin:0 auto 22px;
+      animation:spin 1s linear infinite
+    }
+
+    .btn{
+      display:none;
+      padding:12px 28px;
+      background:linear-gradient(135deg,#ff9d2f,#ff6126);
+      color:#fff;
+      text-decoration:none;
+      font-size:14px;
+      border-radius:999px;
+      box-shadow:0 10px 28px rgba(255,120,40,.45)
+    }
+
+    @keyframes spin{to{transform:rotate(360deg)}}
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <div class="logo">ॐ</div>
+    <h1>Opening Bhakti Sangrah</h1>
+    <p>Redirecting you to the app…</p>
+
+    <div class="loader"></div>
+
+    <a id="fallback" class="btn" href="#">Open Manually</a>
+  </div>
+
+  <script>
+    (function () {
+
+      const ANDROID_PACKAGE = "com.lakvanta.bhaktisangrah";
+      const APP_SCHEME = "bhaktisangrah";
+
+      const ANDROID_APP =
+        `intent://open#Intent;scheme=${APP_SCHEME};package=${ANDROID_PACKAGE};end`;
+
+      const IOS_APP = `${APP_SCHEME}://open`;
+
+      const PLAY_STORE =
+        `https://play.google.com/store/apps/details?id=${ANDROID_PACKAGE}`;
+
+      const APPLE_STORE =
+        `https://apps.apple.com/us/app/bhakti-sangrah/id6757310047`;
+
+      const fallback = document.getElementById("fallback");
+      const ua = navigator.userAgent.toLowerCase();
+
+      let redirected = false;
+
+      function go(url){
+        window.location.href = url;
+        redirected = true;
+      }
+
+       if(ua.includes("iphone") || ua.includes("ipad")){
+        go(APPLE_STORE);
+        setTimeout(()=>{ if(!redirected) go("https://lakvanta.com/bhaktiSangrah"); },1800);
+      }
+      else{
+        go(APPLE_STORE);
+        fallback.href = "https://lakvanta.com/bhaktiSangrah";
+      }
+
+      setTimeout(()=>fallback.style.display="inline-block",2200);
+
+    })();
+  </script>
+</body>
+</html>
