@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>instaReel Terms & Conditions</title>
+  <meta name="description" content="Terms and conditions for instaReel." />
+  <style>
+    :root {
+      --bg: #070b16;
+      --bg-soft: #10172a;
+      --card: rgba(16, 23, 42, 0.82);
+      --text: #ebf0ff;
+      --muted: #b6c1df;
+      --line: rgba(167, 184, 230, 0.28);
+      --accent: #ff5d73;
+      --accent2: #ffb34a;
+      --radius-lg: 20px;
+      --radius-pill: 999px;
+      --shadow: 0 26px 70px rgba(0, 0, 0, 0.42);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background:
+        radial-gradient(1000px 600px at -10% -20%, rgba(255, 93, 115, 0.2), transparent 55%),
+        radial-gradient(900px 600px at 110% 120%, rgba(255, 179, 74, 0.16), transparent 45%),
+        linear-gradient(160deg, #060914, #0a1020 55%, #070b16);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(9, 13, 24, 0.74);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 0 10px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .menu a {
+      border: 1px solid var(--line);
+      background: rgba(16, 23, 42, 0.6);
+      color: var(--muted);
+      padding: 7px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+    }
+
+    .menu a.active {
+      color: #fff;
+      background: linear-gradient(120deg, var(--accent), var(--accent2));
+      border-color: transparent;
+    }
+
+    .url-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding-bottom: 12px;
+    }
+
+    .url-chip {
+      font-size: 11px;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      background: rgba(16, 23, 42, 0.45);
+      border-radius: var(--radius-pill);
+      padding: 6px 10px;
+      word-break: break-all;
+    }
+
+    main { padding: 28px 0 40px; }
+
+    .hero {
+      margin-bottom: 16px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(16, 23, 42, 0.72);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .policy {
+      display: grid;
+      gap: 12px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      padding: 16px;
+    }
+
+    .card h2 {
+      font-size: 18px;
+      margin-bottom: 6px;
+      letter-spacing: -0.02em;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      margin-top: 28px;
+      padding: 20px 0 26px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 720px) {
+      .menu { width: 100%; }
+      .menu a { flex: 1; text-align: center; }
+      .url-chip { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="nav">
+        <a class="brand" href="/reelVault">
+          <img src="reelVault/logo.png" alt="instaReel" />
+          <span>instaReel</span>
+        </a>
+        <nav class="menu">
+          <a href="/reelVault">Home</a>
+          <a href="/reelVault/privacy">Privacy</a>
+          <a class="active" href="/reelVault/terms">Terms</a>
+        </nav>
+      </div>
+      <div class="url-row">
+        <a class="url-chip" href="https://lakvanta.com/reelVault/privacy" target="_blank" rel="noopener">URL: lakvanta.com/reelVault/privacy</a>
+        <a class="url-chip" href="https://lakvanta.com/reelVault/terms" target="_blank" rel="noopener">URL: lakvanta.com/reelVault/terms</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>Terms & Conditions</h1>
+      <p>Effective date: March 3, 2026</p>
+    </section>
+
+    <section class="policy">
+      <article class="card">
+        <h2>Lawful Use Only</h2>
+        <p>Use the app only for legal and authorized purposes. You must have rights to access and save media.</p>
+      </article>
+      <article class="card">
+        <h2>Prohibited Activities</h2>
+        <p>Any misuse, copyright infringement, abuse, or attempts to disrupt service availability are not allowed.</p>
+      </article>
+      <article class="card">
+        <h2>Service Availability</h2>
+        <p>Features can change or pause for maintenance, compliance, or abuse prevention without prior notice.</p>
+      </article>
+      <article class="card">
+        <h2>Liability</h2>
+        <p>The service is provided as-is. Users remain responsible for compliance with local laws and platform policies.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 instaReel</p>
+  </footer>
+</body>
+</html>
