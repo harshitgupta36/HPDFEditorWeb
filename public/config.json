@@ -1,0 +1,62 @@
+{
+  "bhaktiSangrah": {
+    "appName": "Bhakti Sangrah",
+    "supportEmail": "info.elitepdf@gmail.com",
+    "privacyEmail": "info.elitepdf@gmail.com",
+    "legalEmail": "info.elitepdf@gmail.com",
+    "supportPhone": "+91 8360121731",
+    "websiteUrl": "https://lakvanta.com/bhaktiSangrah",
+    "privacyUrl": "https://lakvanta.com/bhaktiSangrah/privacy",
+    "termsUrl": "https://lakvanta.com/bhaktiSangrah/terms",
+    "appStoreUrl": "https://apps.apple.com/app/id6757310047",
+    "playStoreUrl": "",
+    "releaseStatus": "Released",
+    "isReleased": true,
+    "effectiveDate": "January 08, 2026"
+  },
+  "measure": {
+    "appName": "Measure AR",
+    "supportEmail": "info.elitepdf@gmail.com",
+    "privacyEmail": "info.elitepdf@gmail.com",
+    "legalEmail": "info.elitepdf@gmail.com",
+    "supportPhone": "+91 8360121731",
+    "websiteUrl": "https://lakvanta.com/measure",
+    "privacyUrl": "https://lakvanta.com/measure/privacy",
+    "termsUrl": "",
+    "appStoreUrl": "https://apps.apple.com/app/id6642650935",
+    "playStoreUrl": "",
+    "releaseStatus": "Released",
+    "isReleased": true,
+    "effectiveDate": "January 2025"
+  },
+  "reelVault": {
+    "appName": "instaReel",
+    "supportEmail": "info.elitepdf@gmail.com",
+    "privacyEmail": "info.elitepdf@gmail.com",
+    "legalEmail": "info.elitepdf@gmail.com",
+    "supportPhone": "+91 8360121731",
+    "websiteUrl": "https://lakvanta.com/reelVault",
+    "privacyUrl": "https://lakvanta.com/reelVault/privacy",
+    "termsUrl": "https://lakvanta.com/reelVault/terms",
+    "appStoreUrl": "https://apps.apple.com/us/app/instadownloaderapp/id6759930695",
+    "playStoreUrl": "",
+    "releaseStatus": "Released",
+    "isReleased": true,
+    "effectiveDate": "March 3, 2026"
+  },
+  "iptvPlayer": {
+    "appName": "IPTV Player",
+    "supportEmail": "info.elitepdf@gmail.com",
+    "privacyEmail": "info.elitepdf@gmail.com",
+    "legalEmail": "info.elitepdf@gmail.com",
+    "supportPhone": "+91 8360121731",
+    "websiteUrl": "https://lakvanta.com/iptvPlayer",
+    "privacyUrl": "https://lakvanta.com/iptvPlayer/privacy",
+    "termsUrl": "https://lakvanta.com/iptvPlayer/terms",
+    "appStoreUrl": "https://apps.apple.com/app/id0000000000",
+    "playStoreUrl": "",
+    "releaseStatus": "Coming Soon",
+    "isReleased": false,
+    "effectiveDate": "March 20, 2026"
+  }
+}

@@ -7,11 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Bhakti Sangrah is a calm devotional iOS app for mantras, aartis, chalisas, and spiritual reading with focus, silence, and peace.">
 
-<!-- ================= JS CONSTANTS ================= -->
-<script>
-  const APP_STORE_URL = "https://apps.apple.com/app/id6757310047";
-  const CONTACT_EMAIL = "mailto:info.elitepdf@gmail.com";
-</script>
+<script src="/config.js"></script>
 
 <style>
 /* ================= DESIGN TOKENS ================= */
@@ -243,7 +239,7 @@ footer a {
   </p>
 
   <div class="hero-actions">
-    <a class="btn-primary" onclick="window.open(APP_STORE_URL)">
+    <a class="btn-primary" id="hero-download" href="#" target="_blank" rel="noopener">
       Download on App Store
     </a>
   </div>
@@ -307,7 +303,7 @@ footer a {
     </p>
     <p>
       Contact:<br>
-      📧 <a onclick="window.location=CONTACT_EMAIL">info.elitepdf@gmail.com</a>
+      📧 <a id="contact-email" href="#"></a>
     </p>
   </div>
 </section>
@@ -320,7 +316,7 @@ footer a {
       and devotion more than distraction — Bhakti Sangrah is for you.
     </p>
     <div class="hero-actions">
-      <a class="btn-primary" onclick="window.open(APP_STORE_URL)">
+      <a class="btn-primary" id="footer-download" href="#" target="_blank" rel="noopener">
         Download on App Store
       </a>
     </div>
@@ -331,6 +327,15 @@ footer a {
   Created with <strong>श्रद्धा</strong> · Guided by <strong>भक्ति</strong> · For inner <strong>शांति</strong><br>
   © 2026 Bhakti Sangrah
 </footer>
+
+<script>
+  const config = window.getAppConfig("bhaktiSangrah");
+  document.getElementById("hero-download").href = config.appStoreUrl;
+  document.getElementById("footer-download").href = config.appStoreUrl;
+  const contactLink = document.getElementById("contact-email");
+  contactLink.href = `mailto:${config.supportEmail}`;
+  contactLink.textContent = config.supportEmail;
+</script>
 
 </body>
 </html>

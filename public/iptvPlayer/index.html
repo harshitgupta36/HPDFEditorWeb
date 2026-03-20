@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IPTV Player</title>
+  <meta name="description" content="IPTV Player is a modern streaming workspace for importing playlists, organizing channels, and protecting private sources." />
+  <link rel="icon" href="/iptvPlayer/logo.png" />
+  <script src="/config.js"></script>
+  <style>
+    :root {
+      --bg: #06111b;
+      --bg-2: #0b1b29;
+      --panel: rgba(12, 25, 37, 0.88);
+      --panel-strong: #0f2232;
+      --card: rgba(15, 34, 50, 0.9);
+      --line: rgba(159, 188, 214, 0.16);
+      --text: #edf6ff;
+      --muted: #9eb4c9;
+      --accent: #52a7ff;
+      --accent-2: #35d2a7;
+      --shadow: 0 28px 90px rgba(0, 0, 0, 0.34);
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --radius-pill: 999px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background:
+        radial-gradient(900px 500px at -10% -10%, rgba(82, 167, 255, 0.18), transparent 60%),
+        radial-gradient(900px 500px at 110% 10%, rgba(53, 210, 167, 0.12), transparent 60%),
+        linear-gradient(180deg, var(--bg), var(--bg-2));
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .page { max-width: 1160px; margin: 0 auto; padding: 0 22px; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(18px);
+      background: rgba(6, 17, 27, 0.72);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: var(--shadow);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .menu a {
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-pill);
+      padding: 8px 13px;
+      font-size: 13px;
+      background: rgba(15, 34, 50, 0.54);
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: var(--radius-pill);
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: transform .2s ease, opacity .2s ease;
+    }
+
+    .btn-primary {
+      color: #08131d;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 18px 50px rgba(21, 110, 175, 0.28);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(15, 34, 50, 0.7);
+      border: 1px solid var(--line);
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover { transform: translateY(-2px); }
+
+    .hero {
+      padding: 54px 0 32px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .hero-panel,
+    .hero-aside,
+    .section-card,
+    .feature-card,
+    .timeline-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel { padding: 34px; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      padding: 7px 12px;
+      color: var(--muted);
+      font-size: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    h1 {
+      font-size: clamp(38px, 6vw, 64px);
+      line-height: 1.03;
+      letter-spacing: -0.05em;
+      margin-bottom: 16px;
+    }
+
+    h1 .highlight {
+      background: linear-gradient(135deg, #8bc5ff, #7ef1d1);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-copy {
+      max-width: 680px;
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 22px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .metric {
+      padding: 16px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .metric span {
+      display: block;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .hero-aside {
+      padding: 24px;
+      display: grid;
+      gap: 18px;
+      align-content: start;
+    }
+
+    .aside-card {
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      background: var(--panel-strong);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .aside-card h2 {
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+
+    .aside-card p,
+    .aside-card li {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .aside-card ul {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .aside-card li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .bullet {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent-2);
+      margin-top: 7px;
+      flex: 0 0 auto;
+    }
+
+    section { padding: 24px 0; }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .section-head h2 {
+      font-size: 29px;
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 720px;
+      font-size: 15px;
+    }
+
+    .feature-grid,
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .feature-card,
+    .timeline-card {
+      padding: 22px;
+    }
+
+    .feature-card .tag {
+      display: inline-flex;
+      margin-bottom: 12px;
+      padding: 6px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      color: var(--accent-2);
+      background: rgba(53, 210, 167, 0.1);
+      border: 1px solid rgba(53, 210, 167, 0.16);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .feature-card h3,
+    .timeline-card h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p,
+    .timeline-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .section-card {
+      padding: 26px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .list {
+      display: grid;
+      gap: 12px;
+      list-style: none;
+    }
+
+    .list li {
+      display: flex;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .cta-box {
+      padding: 22px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(82, 167, 255, 0.12), rgba(53, 210, 167, 0.08));
+      border: 1px solid rgba(82, 167, 255, 0.18);
+    }
+
+    .cta-box h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .cta-box p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .showcase {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.92fr);
+      gap: 20px;
+    }
+
+    .showcase-panel,
+    .dashboard-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+
+    .showcase-panel,
+    .dashboard-card {
+      padding: 26px;
+    }
+
+    .dashboard-shell {
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(82, 167, 255, 0.08), rgba(53, 210, 167, 0.05));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 18px;
+    }
+
+    .dashboard-top {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .dashboard-stat,
+    .channel-row {
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .dashboard-stat {
+      padding: 14px;
+    }
+
+    .dashboard-stat strong {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .dashboard-stat span {
+      display: block;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .channel-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .channel-row {
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .channel-meta {
+      display: grid;
+      gap: 4px;
+    }
+
+    .channel-meta strong {
+      font-size: 14px;
+    }
+
+    .channel-meta span,
+    .channel-badge {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .channel-badge {
+      padding: 6px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      white-space: nowrap;
+    }
+
+    footer {
+      padding: 28px 0 44px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .section-card,
+      .showcase,
+      .feature-grid,
+      .timeline-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-panel,
+      .hero-aside,
+      .section-card,
+      .feature-card,
+      .timeline-card { padding: 20px; }
+
+      .hero-metrics { grid-template-columns: 1fr; }
+      .menu { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="page nav">
+      <a class="brand" href="/iptvPlayer">
+        <img class="brand-mark" src="/iptvPlayer/logo.png" alt="IPTV Player logo" />
+        <span id="app-name">IPTV Player</span>
+      </a>
+      <nav class="menu">
+        <a href="#overview">Overview</a>
+        <a href="#features">Features</a>
+        <a href="#workflow">Workflow</a>
+        <a href="/iptvPlayer/privacy">Privacy</a>
+        <a href="/iptvPlayer/terms">Terms</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div class="hero-panel">
+        <div class="eyebrow">
+          <span id="release-status">Coming Soon</span>
+          <span>Playlist import, organized browsing, and protected private vault</span>
+        </div>
+        <h1><span id="hero-title">IPTV Player</span> for a <span class="highlight">cleaner streaming workflow</span>.</h1>
+        <p class="hero-copy">
+          Designed for users who want more than a raw playlist viewer, <span id="app-name-copy">IPTV Player</span> brings together fast import, structured categories, reels-style discovery, and secure private content handling in one premium experience.
+        </p>
+        <div class="hero-actions">
+          <a class="btn-primary" id="privacy-link" href="/iptvPlayer/privacy">Privacy Policy</a>
+          <a class="btn-secondary" id="terms-link" href="/iptvPlayer/terms">Terms of Use</a>
+        </div>
+        <div class="hero-metrics">
+          <div class="metric">
+            <strong>Support</strong>
+            <span id="support-email">info.elitepdf@gmail.com</span>
+          </div>
+          <div class="metric">
+            <strong>Phone</strong>
+            <span id="support-phone">+91 83601 21731</span>
+          </div>
+          <div class="metric">
+            <strong>Website</strong>
+            <span id="app-url">https://lakvanta.com/iptvPlayer</span>
+          </div>
+          <div class="metric">
+            <strong>Status</strong>
+            <span id="release-status-copy">Coming Soon</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-aside">
+        <div class="aside-card">
+          <h2>What makes it feel professional</h2>
+          <ul>
+            <li><span class="bullet"></span><span>One place to import M3U playlists and direct stream URLs without a cluttered interface.</span></li>
+            <li><span class="bullet"></span><span>Clear separation between public browsing and protected private vault content.</span></li>
+            <li><span class="bullet"></span><span>Faster channel exploration through category structure, search, favorites, and reels-style playback.</span></li>
+          </ul>
+        </div>
+        <div class="aside-card">
+          <h2>Release intent</h2>
+          <p>
+            This page supports App Store review, launch readiness, privacy transparency, and user trust by making support, legal, and release state easy to verify.
+          </p>
+        </div>
+      </aside>
+    </section>
+
+    <section id="overview">
+      <div class="section-head">
+        <div>
+          <h2>Built for real IPTV usage</h2>
+          <p>Not just playback. The product is structured for import, browsing, secure organization, and repeat daily use across large playlists.</p>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <span class="tag">Import</span>
+          <h3>Playlist onboarding that feels clear</h3>
+          <p>Add playlists, scan categories, and understand what has been imported without dumping users into a noisy interface.</p>
+        </article>
+        <article class="feature-card">
+          <span class="tag">Discovery</span>
+          <h3>Multiple ways to find content</h3>
+          <p>Browse through categories, search, favorites, rows, grid views, and a dedicated reels-style channel flow for fast discovery.</p>
+        </article>
+        <article class="feature-card">
+          <span class="tag">Security</span>
+          <h3>Private vault for sensitive sources</h3>
+          <p>Keep selected sources and channels out of the normal browsing flow with biometric or PIN-protected access.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="section-card">
+        <div>
+          <div class="section-head" style="margin-bottom:14px;">
+            <div>
+              <h2>Core experience highlights</h2>
+              <p>The app is shaped around reliability, readability, and quick access rather than flashy clutter.</p>
+            </div>
+          </div>
+          <ul class="list">
+            <li><span class="bullet"></span><span>Unified playlist import with source-aware browsing and quick search.</span></li>
+            <li><span class="bullet"></span><span>Favorites, recents, categories, and curated rows for frequent channel access.</span></li>
+            <li><span class="bullet"></span><span>Full-screen reels player for lightweight channel exploration.</span></li>
+            <li><span class="bullet"></span><span>Settings, diagnostics, support, privacy, and legal surfaces prepared for production release.</span></li>
+          </ul>
+        </div>
+        <div class="cta-box">
+          <h3>Need launch details?</h3>
+          <p>Support contacts, privacy links, terms links, and release state are centrally managed so both web and app surfaces stay aligned.</p>
+          <a class="btn-primary" id="website-link" href="https://lakvanta.com/iptvPlayer" target="_blank" rel="noopener">Open Website</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflow">
+      <div class="section-head">
+        <div>
+          <h2>Simple user workflow</h2>
+          <p>The product is designed to reduce friction from first import to everyday viewing.</p>
+        </div>
+      </div>
+      <div class="timeline-grid">
+        <article class="timeline-card">
+          <h3>1. Import your source</h3>
+          <p>Start with a playlist or direct stream URL and immediately see channels organized into a usable browsing structure.</p>
+        </article>
+        <article class="timeline-card">
+          <h3>2. Browse with intent</h3>
+          <p>Use categories, search, and favorites to move quickly through large channel libraries without confusion.</p>
+        </article>
+        <article class="timeline-card">
+          <h3>3. Protect what matters</h3>
+          <p>Move sensitive content into the private vault and keep public browsing clean and presentation-ready.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="section-head">
+        <div>
+          <h2>A more premium control surface</h2>
+          <p>The visual direction is intentionally closer to a polished product dashboard than a quick placeholder marketing page.</p>
+        </div>
+      </div>
+      <div class="showcase">
+        <div class="showcase-panel">
+          <ul class="list">
+            <li><span class="bullet"></span><span>Clear hierarchy between import, browse, reels, and private vault instead of a single overloaded screen.</span></li>
+            <li><span class="bullet"></span><span>Support and legal contact details visible enough for release readiness and reviewer trust.</span></li>
+            <li><span class="bullet"></span><span>Presentation that can sit comfortably beside your better-looking company pages instead of feeling like a throwaway app microsite.</span></li>
+          </ul>
+        </div>
+        <div class="dashboard-card">
+          <div class="dashboard-shell">
+            <div class="dashboard-top">
+              <div class="dashboard-stat">
+                <strong>Playlists</strong>
+                <span>3 Sources</span>
+              </div>
+              <div class="dashboard-stat">
+                <strong>Channels</strong>
+                <span>482 Live</span>
+              </div>
+              <div class="dashboard-stat">
+                <strong>Vault</strong>
+                <span>Protected</span>
+              </div>
+            </div>
+            <div class="channel-list">
+              <div class="channel-row">
+                <div class="channel-meta">
+                  <strong>Sports Premier HD</strong>
+                  <span>Live match coverage · Full HD</span>
+                </div>
+                <span class="channel-badge">Trending</span>
+              </div>
+              <div class="channel-row">
+                <div class="channel-meta">
+                  <strong>World Cinema 4K</strong>
+                  <span>Curated movies · Evening schedule</span>
+                </div>
+                <span class="channel-badge">Featured</span>
+              </div>
+              <div class="channel-row">
+                <div class="channel-meta">
+                  <strong>Private News Feed</strong>
+                  <span>Vault-only source · Hidden from public browse</span>
+                </div>
+                <span class="channel-badge">Secured</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page">
+    <div class="footer-inner">
+      <span>&copy; 2026 <span id="footer-name">IPTV Player</span></span>
+      <span id="footer-contact">Support: info.elitepdf@gmail.com</span>
+    </div>
+  </footer>
+
+  <script>
+    const config = window.getAppConfig("iptvPlayer");
+    document.title = config.appName;
+    document.getElementById("app-name").textContent = config.appName;
+    document.getElementById("hero-title").textContent = config.appName;
+    document.getElementById("app-name-copy").textContent = config.appName;
+    document.getElementById("footer-name").textContent = config.appName;
+    document.getElementById("release-status").textContent = config.releaseStatus;
+    document.getElementById("release-status-copy").textContent = config.releaseStatus;
+    document.getElementById("support-email").textContent = config.supportEmail;
+    document.getElementById("support-phone").textContent = config.supportPhone;
+    document.getElementById("app-url").textContent = config.websiteUrl;
+    document.getElementById("privacy-link").href = config.privacyUrl;
+    document.getElementById("terms-link").href = config.termsUrl;
+    document.getElementById("website-link").href = config.websiteUrl;
+    document.getElementById("footer-contact").textContent = `Support: ${config.supportEmail} • ${config.supportPhone}`;
+  </script>
+</body>
+</html>

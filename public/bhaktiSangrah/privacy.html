@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Privacy Policy for Bhakti Sangrah devotional application.">
+<script src="/config.js"></script>
 
 <style>
 :root {
@@ -135,7 +136,7 @@ footer a {
 <!-- HEADER -->
 <header>
   <h1>Privacy Policy</h1>
-  <p>Last Updated: January 2026</p>
+  <p>Last Updated: <span id="effective-date">January 2026</span></p>
 </header>
 
 <!-- CONTENT -->
@@ -216,7 +217,7 @@ footer a {
       please contact us at:
     </p>
     <p>
-      📧 <a href="mailto:vighnablitz@gmail.com">vighnablitz@gmail.com</a>
+      📧 <a id="privacy-email" href="#"></a>
     </p>
 
   </div>
@@ -226,6 +227,14 @@ footer a {
   © 2026 Bhakti Sangrah · All rights reserved<br>
   श्रद्धा • भक्ति • शांति
 </footer>
+
+<script>
+  const config = window.getAppConfig("bhaktiSangrah");
+  document.getElementById("effective-date").textContent = config.effectiveDate;
+  const privacyEmail = document.getElementById("privacy-email");
+  privacyEmail.href = `mailto:${config.privacyEmail}`;
+  privacyEmail.textContent = config.privacyEmail;
+</script>
 
 </body>
 </html>

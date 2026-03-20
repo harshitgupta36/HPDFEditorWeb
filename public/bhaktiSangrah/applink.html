@@ -13,6 +13,7 @@
   <meta property="og:title" content="Bhakti Sangrah" />
   <meta property="og:description" content="Pure devotion in one place." />
   <meta property="og:url" content="https://lakvanta.com/bhaktiSangrah" />
+  <script src="/config.js"></script>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
@@ -95,8 +96,9 @@
   <script>
     (function () {
 
-      const ANDROID_PACKAGE = "com.lakvanta.bhaktisangrah";
-      const APP_SCHEME = "bhaktisangrah";
+      const config = window.getAppConfig("bhaktiSangrah");
+      const ANDROID_PACKAGE = config.androidPackage;
+      const APP_SCHEME = config.appScheme;
 
       const ANDROID_APP =
         `intent://open#Intent;scheme=${APP_SCHEME};package=${ANDROID_PACKAGE};end`;
@@ -106,8 +108,7 @@
       const PLAY_STORE =
         `https://play.google.com/store/apps/details?id=${ANDROID_PACKAGE}`;
 
-      const APPLE_STORE =
-        `https://apps.apple.com/us/app/bhakti-sangrah/id6757310047`;
+      const APPLE_STORE = config.appStoreUrl;
 
       const fallback = document.getElementById("fallback");
       const ua = navigator.userAgent.toLowerCase();
@@ -121,11 +122,11 @@
 
        if(ua.includes("iphone") || ua.includes("ipad")){
         go(APPLE_STORE);
-        setTimeout(()=>{ if(!redirected) go("https://lakvanta.com/bhaktiSangrah"); },1800);
+        setTimeout(()=>{ if(!redirected) go(config.websiteUrl); },1800);
       }
       else{
         go(APPLE_STORE);
-        fallback.href = "https://lakvanta.com/bhaktiSangrah";
+        fallback.href = config.websiteUrl;
       }
 
       setTimeout(()=>fallback.style.display="inline-block",2200);

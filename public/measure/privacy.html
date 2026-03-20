@@ -8,6 +8,7 @@
 
   <meta name="description"
         content="Privacy Policy for Measure AR by Lakvanta Technologies. Measure AR is a privacy-first app that works fully on-device and does not collect personal data." />
+  <script src="/config.js"></script>
 
   <link rel="icon" href="/logo.png"/>
 
@@ -132,7 +133,7 @@
 
 <main class="container">
   <h1>Privacy Policy — Measure AR</h1>
-  <div class="subtitle">Last updated: January 2025</div>
+  <div class="subtitle">Last updated: <span id="effective-date">January 2025</span></div>
 
   <div class="card">
 
@@ -221,7 +222,7 @@
     <p>
       <strong>Lakvanta Technologies</strong><br/>
       Email:
-      <a href="mailto:vighnablitz@gmail.com">vighnablitz@gmail.com</a>
+      <a id="privacy-email" href="#"></a>
     </p>
 
     <p style="margin-top:14px;font-size:13px;">
@@ -237,6 +238,11 @@
 </footer>
 
 <script>
+  const config = window.getAppConfig("measure");
+  document.getElementById("effective-date").textContent = config.effectiveDate;
+  const privacyEmail = document.getElementById("privacy-email");
+  privacyEmail.href = `mailto:${config.privacyEmail}`;
+  privacyEmail.textContent = config.privacyEmail;
   document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 

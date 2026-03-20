@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IPTV Player Terms of Use</title>
+  <link rel="icon" href="/iptvPlayer/logo.png" />
+  <style>
+    :root { --bg: #071018; --surface: #0f1b27; --text: #eef4ff; --muted: #a9b8cc; --line: rgba(255,255,255,0.12); --accent: #34d3a3; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; background: var(--bg); color: var(--text); }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 24px; }
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 24px; margin-bottom: 16px; }
+    a { color: var(--accent); text-decoration: none; }
+    p { color: var(--muted); line-height: 1.7; }
+    h1, h2 { margin-top: 0; }
+  </style>
+  <script src="/config.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Terms of Use</h1>
+      <p>Effective date: <span id="effective-date">March 20, 2026</span></p>
+      <p>This is a starter terms page for <span id="app-name">IPTV Player</span>. Replace this text with your final legal copy before release.</p>
+    </div>
+    <div class="card">
+      <h2>User Responsibility</h2>
+      <p>Users are responsible for importing and streaming only content they are authorized to access.</p>
+    </div>
+    <div class="card">
+      <h2>Availability</h2>
+      <p>Playback quality and source availability depend on third-party providers and network conditions.</p>
+    </div>
+    <div class="card">
+      <h2>Contact</h2>
+      <p id="legal-email">info.elitepdf@gmail.com</p>
+      <p><a id="home-link" href="/iptvPlayer">Back to Home</a></p>
+    </div>
+  </div>
+  <script>
+    const config = window.getAppConfig("iptvPlayer");
+    document.title = `${config.appName} Terms of Use`;
+    document.getElementById('app-name').textContent = config.appName;
+    document.getElementById('effective-date').textContent = config.effectiveDate;
+    document.getElementById('legal-email').textContent = config.legalEmail;
+    document.getElementById('home-link').href = config.websiteUrl;
+  </script>
+</body>
+</html>

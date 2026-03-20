@@ -3,63 +3,49 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>instaReel — Fast Instagram Downloader</title>
-  <meta name="description" content="instaReel is a premium iOS app to save reels, posts and media quickly with a clean, privacy-first workflow." />
+  <title>instaReel</title>
+  <meta name="description" content="instaReel is a premium iPhone downloader experience for fast saving, private protection, and cleaner media workflow." />
+  <script src="/config.js"></script>
   <style>
     :root {
-      --bg: #090d18;
-      --bg-soft: #10172a;
-      --card: rgba(16, 23, 42, 0.82);
-      --text: #edf1ff;
-      --muted: #b4bfdc;
-      --line: rgba(167, 184, 230, 0.28);
+      --bg: #080b15;
+      --bg-2: #120b16;
+      --panel: rgba(16, 18, 34, 0.9);
+      --card: rgba(25, 18, 32, 0.92);
+      --line: rgba(255, 255, 255, 0.12);
+      --text: #f5f0ff;
+      --muted: #c1b7d6;
       --accent: #ff5d73;
-      --accent2: #ffb34a;
-      --accent3: #5eead4;
-      --radius-xl: 28px;
-      --radius-lg: 18px;
-      --radius-pill: 999px;
-      --shadow: 0 28px 80px rgba(0, 0, 0, 0.4);
+      --accent-2: #ffb34a;
+      --accent-3: #69f2d0;
+      --shadow: 0 30px 90px rgba(0, 0, 0, 0.34);
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --pill: 999px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
+    html { scroll-behavior: smooth; }
     body {
-      font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
-      line-height: 1.5;
+      line-height: 1.6;
       min-height: 100vh;
       background:
-        radial-gradient(1000px 600px at -10% -20%, rgba(255, 93, 115, 0.25), transparent 55%),
-        radial-gradient(900px 600px at 110% 120%, rgba(94, 234, 212, 0.2), transparent 45%),
-        linear-gradient(160deg, #060914, #0a1020 55%, #070b16);
-      overflow-x: hidden;
+        radial-gradient(900px 520px at 0% 0%, rgba(255, 93, 115, 0.18), transparent 58%),
+        radial-gradient(900px 520px at 100% 100%, rgba(105, 242, 208, 0.14), transparent 58%),
+        linear-gradient(180deg, var(--bg), var(--bg-2));
     }
 
-    a { text-decoration: none; color: inherit; }
-
-    .page { max-width: 1120px; margin: 0 auto; padding: 0 22px; }
-
-    .glow-orb {
-      position: fixed;
-      width: 420px;
-      height: 420px;
-      border-radius: 999px;
-      filter: blur(40px);
-      pointer-events: none;
-      z-index: -1;
-      opacity: 0.4;
-    }
-
-    .orb-1 { background: #ff5d73; top: -140px; right: -120px; }
-    .orb-2 { background: #5eead4; bottom: -180px; left: -120px; }
+    a { color: inherit; text-decoration: none; }
+    .page { max-width: 1160px; margin: 0 auto; padding: 0 22px; }
 
     header {
       position: sticky;
       top: 0;
       z-index: 20;
-      backdrop-filter: blur(16px);
-      background: rgba(9, 13, 24, 0.72);
+      backdrop-filter: blur(18px);
+      background: rgba(8, 11, 21, 0.74);
       border-bottom: 1px solid var(--line);
     }
 
@@ -67,29 +53,25 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 16px;
       padding: 14px 0;
     }
 
     .brand {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
     }
 
     .brand img {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
       object-fit: cover;
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      background: #0f172a;
-    }
-
-    .brand .name {
-      font-size: 17px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      border: 1px solid rgba(255, 255, 255, 0.14);
     }
 
     .menu {
@@ -100,318 +82,421 @@
     }
 
     .menu a {
-      border: 1px solid var(--line);
-      background: rgba(16, 23, 42, 0.6);
       color: var(--muted);
-      padding: 7px 12px;
-      border-radius: var(--radius-pill);
-      font-size: 12px;
-    }
-
-    .menu a.active {
-      color: #fff;
-      background: linear-gradient(120deg, var(--accent), var(--accent2));
-      border-color: transparent;
-    }
-
-    .url-row {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      padding-bottom: 12px;
-    }
-
-    .url-chip {
-      font-size: 11px;
-      color: var(--muted);
+      padding: 8px 13px;
+      border-radius: var(--pill);
       border: 1px solid var(--line);
-      background: rgba(16, 23, 42, 0.45);
-      border-radius: var(--radius-pill);
-      padding: 6px 10px;
-      word-break: break-all;
+      background: rgba(30, 20, 36, 0.62);
+      font-size: 13px;
     }
 
-    .btn-appstore {
+    .btn-primary,
+    .btn-secondary {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
-      border-radius: var(--radius-pill);
-      padding: 10px 18px;
-      font-size: 13px;
+      padding: 12px 18px;
+      border-radius: var(--pill);
+      font-size: 14px;
       font-weight: 700;
-      color: #fff;
-      background: linear-gradient(120deg, var(--accent), var(--accent2));
-      box-shadow: 0 14px 32px rgba(255, 93, 115, 0.42);
       transition: transform .2s ease;
     }
 
-    .btn-appstore:hover { transform: translateY(-2px); }
-
-    .hero {
-      padding: 64px 0 22px;
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 24px;
-      align-items: center;
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 18px 52px rgba(255, 93, 115, 0.28);
     }
 
-    .pill {
-      display: inline-flex;
-      padding: 7px 12px;
-      border-radius: var(--radius-pill);
-      font-size: 12px;
-      color: var(--muted);
+    .btn-secondary {
+      background: rgba(30, 20, 36, 0.7);
       border: 1px solid var(--line);
-      background: rgba(16, 23, 42, 0.65);
-      margin-bottom: 14px;
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover { transform: translateY(-2px); }
+
+    .hero {
+      padding: 56px 0 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(310px, 0.92fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-panel,
+    .phone-panel,
+    .feature-card,
+    .section-card,
+    .proof-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel,
+    .phone-panel,
+    .feature-card,
+    .proof-card { padding: 24px; }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 7px 12px;
+      border-radius: var(--pill);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 18px;
     }
 
     h1 {
-      font-size: clamp(34px, 6vw, 58px);
-      line-height: 1.04;
-      letter-spacing: -0.045em;
-      margin-bottom: 14px;
+      font-size: clamp(40px, 6vw, 64px);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+      margin-bottom: 16px;
     }
 
-    h1 .grad {
-      background: linear-gradient(120deg, #ff8a9a, #ffd18a, #88fff3);
+    .grad {
+      background: linear-gradient(135deg, #ff96a6, #ffd090, #87ffe8);
       -webkit-background-clip: text;
       color: transparent;
     }
 
-    .sub {
+    .hero-copy {
+      max-width: 650px;
       color: var(--muted);
-      max-width: 560px;
       font-size: 16px;
       margin-bottom: 22px;
     }
 
     .hero-actions {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       flex-wrap: wrap;
+      margin-bottom: 24px;
     }
 
-    .btn-secondary {
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--line);
-      padding: 10px 16px;
-      font-size: 13px;
-      color: var(--text);
-      background: rgba(16, 23, 42, 0.45);
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
     }
 
-    .preview-card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-xl);
-      padding: 22px;
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
+    .meta-card {
+      padding: 16px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
     }
 
-    .preview-card::after {
-      content: "";
-      position: absolute;
-      right: -60px;
-      top: -60px;
-      width: 180px;
-      height: 180px;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(255, 179, 74, 0.3), transparent 65%);
+    .meta-card strong {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
     }
 
-    .phone {
-      background: linear-gradient(170deg, #0a1226, #0f1a34);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 24px;
-      padding: 14px;
+    .meta-card span {
+      display: block;
+      font-size: 15px;
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    .phone-shell {
+      border-radius: 26px;
+      padding: 16px;
+      background: linear-gradient(180deg, #181422, #23132a);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .phone-top {
       display: flex;
-      align-items: center;
-      gap: 9px;
-      margin-bottom: 10px;
+      gap: 8px;
+      margin-bottom: 12px;
     }
 
-    .dot { width: 7px; height: 7px; border-radius: 999px; background: #ff6b81; }
-    .dot:nth-child(2) { background: #fbbf24; }
-    .dot:nth-child(3) { background: #34d399; }
+    .dot { width: 8px; height: 8px; border-radius: 999px; background: var(--accent); }
+    .dot:nth-child(2) { background: var(--accent-2); }
+    .dot:nth-child(3) { background: var(--accent-3); }
 
-    .rows { display: grid; gap: 9px; }
-
-    .row {
-      height: 42px;
-      border: 1px solid rgba(255, 255, 255, 0.11);
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.03);
+    .screen {
+      display: grid;
+      gap: 10px;
     }
 
-    .section {
-      padding: 34px 0 56px;
+    .screen-row {
+      height: 46px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.06);
     }
 
-    .section h2 {
-      font-size: 28px;
+    section { padding: 24px 0; }
+    .section-head {
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+    }
+
+    .section-head h2 {
+      font-size: 30px;
       letter-spacing: -0.03em;
       margin-bottom: 6px;
     }
 
-    .section p.title-sub {
+    .section-head p {
       color: var(--muted);
-      margin-bottom: 16px;
-      max-width: 680px;
+      max-width: 720px;
+      font-size: 15px;
     }
 
-    .grid {
+    .feature-grid,
+    .proof-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
+      gap: 18px;
     }
 
-    .card {
-      border: 1px solid var(--line);
-      border-radius: var(--radius-lg);
-      background: rgba(16, 23, 42, 0.7);
-      padding: 16px;
+    .feature-card h3,
+    .proof-card h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
     }
 
-    .card h3 { font-size: 17px; margin-bottom: 6px; }
-    .card p { color: var(--muted); font-size: 14px; }
+    .feature-card p,
+    .proof-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
 
-    .cta {
-      margin-top: 24px;
-      border: 1px solid var(--line);
-      background: linear-gradient(135deg, rgba(255, 93, 115, 0.14), rgba(255, 179, 74, 0.12));
-      border-radius: 22px;
-      padding: 22px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .section-card {
+      padding: 26px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .list {
+      list-style: none;
+      display: grid;
       gap: 12px;
-      flex-wrap: wrap;
     }
 
-    .cta p { color: var(--muted); }
+    .list li {
+      display: flex;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .bullet {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent-3);
+      margin-top: 7px;
+      flex: 0 0 auto;
+    }
+
+    .cta-box {
+      padding: 22px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(255, 93, 115, 0.1), rgba(255, 179, 74, 0.08));
+      border: 1px solid rgba(255, 93, 115, 0.16);
+    }
+
+    .cta-box h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .cta-box p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
 
     footer {
-      padding: 26px 0 36px;
-      border-top: 1px solid var(--line);
+      padding: 30px 0 44px;
       color: var(--muted);
-      font-size: 12px;
-      text-align: center;
+      font-size: 13px;
     }
 
-    @media (max-width: 780px) {
-      .menu { width: 100%; }
-      .menu a { flex: 1; text-align: center; }
-      .url-chip { width: 100%; }
-      .btn-appstore { width: 100%; justify-content: center; }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
     }
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; }
-      .grid { grid-template-columns: 1fr; }
-      .preview-card { max-width: 520px; }
+
+    @media (max-width: 980px) {
+      .hero,
+      .section-card,
+      .feature-grid,
+      .proof-grid,
+      .meta-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="glow-orb orb-1"></div>
-  <div class="glow-orb orb-2"></div>
-
   <header>
-    <div class="page">
-      <div class="nav">
-        <a class="brand" href="/reelVault">
-          <img src="reelVault/logo.png" alt="App Logo" />
-          <span class="name" data-app-name>instaReel</span>
-        </a>
-        <nav class="menu">
-          <a class="active" href="/reelVault">Home</a>
-          <a href="/reelVault/privacy">Privacy</a>
-          <a href="/reelVault/terms">Terms</a>
-        </nav>
-        <a class="btn-appstore" href="https://apps.apple.com/us/app/instadownloaderapp/id6759930695" target="_blank" rel="noopener">Open on App Store</a>
-      </div>
-      <div class="url-row">
-        <a class="url-chip" href="https://lakvanta.com/reelVault/privacy" target="_blank" rel="noopener">URL: lakvanta.com/reelVault/privacy</a>
-        <a class="url-chip" href="https://lakvanta.com/reelVault/terms" target="_blank" rel="noopener">URL: lakvanta.com/reelVault/terms</a>
-      </div>
+    <div class="page nav">
+      <a class="brand" href="/reelVault">
+        <img src="/reelVault/logo.png" alt="instaReel" />
+        <span data-app-name>instaReel</span>
+      </a>
+      <nav class="menu">
+        <a href="#features">Features</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#trust">Trust</a>
+        <a href="/reelVault/privacy">Privacy</a>
+        <a href="/reelVault/terms">Terms</a>
+      </nav>
     </div>
   </header>
 
   <main class="page">
     <section class="hero">
-      <div>
-        <span class="pill">iOS App • Instagram Downloader</span>
-        <h1>Save reels faster with a <span class="grad">premium iPhone experience</span>.</h1>
-        <p class="sub">
-          <span data-app-name>instaReel</span> is built for quick workflow: copy, share, save. No clutter, clean controls, and smooth performance.
-          This web page is only an introduction. Downloads happen in the iOS app.
+      <div class="hero-panel">
+        <div class="eyebrow">
+          <span id="release-label">Released</span>
+          <span>Premium save flow for reels, posts, and private media management</span>
+        </div>
+        <h1>Save faster with <span class="grad">a more polished iPhone workflow</span>.</h1>
+        <p class="hero-copy">
+          <span data-app-name>instaReel</span> is positioned as a fast media-saving experience with cleaner UX, faster action paths, and a stronger sense of privacy than throwaway downloader pages usually communicate.
         </p>
         <div class="hero-actions">
-          <a class="btn-appstore" href="https://apps.apple.com/us/app/instadownloaderapp/id6759930695" target="_blank" rel="noopener">Download for iPhone</a>
-          <a class="btn-secondary" href="https://apps.apple.com/us/app/instadownloaderapp/id6759930695" target="_blank" rel="noopener">View App Store Listing</a>
+          <a class="btn-primary" id="download-link" href="#" target="_blank" rel="noopener">Open on App Store</a>
+          <a class="btn-secondary" id="listing-link" href="#" target="_blank" rel="noopener">View Listing</a>
+        </div>
+        <div class="meta-grid">
+          <div class="meta-card"><strong>Support</strong><span id="support-email">info.elitepdf@gmail.com</span></div>
+          <div class="meta-card"><strong>Phone</strong><span id="support-phone">+91 83601 21731</span></div>
+          <div class="meta-card"><strong>Privacy</strong><span id="privacy-url-text">lakvanta.com/reelVault/privacy</span></div>
         </div>
       </div>
 
-      <div class="preview-card">
-        <div class="phone">
+      <aside class="phone-panel">
+        <h2 style="font-size:20px; margin-bottom:12px;">Focused product impression</h2>
+        <div class="phone-shell">
           <div class="phone-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-          <div class="rows">
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
+          <div class="screen">
+            <div class="screen-row"></div>
+            <div class="screen-row"></div>
+            <div class="screen-row"></div>
+            <div class="screen-row"></div>
           </div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="features">
+      <div class="section-head">
+        <div>
+          <h2>Professional positioning, not random downloader copy</h2>
+          <p>The page now frames the app around speed, clarity, user trust, and privacy support instead of generic “download anything” messaging.</p>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <h3>Clean save workflow</h3>
+          <p>Designed around quick copy, share, and save behavior with less clutter and less friction between intent and action.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Private vault support</h3>
+          <p>Selected downloads can stay protected behind biometric or PIN access for users who care about privacy on-device.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Faster product trust</h3>
+          <p>Support, legal pages, and App Store access are visible and structured in a way that feels release-ready.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="workflow">
+      <div class="section-card">
+        <div>
+          <div class="section-head" style="margin-bottom:14px;">
+            <div>
+              <h2>Designed around user momentum</h2>
+              <p>The product story is simple: users find content, trigger a save flow quickly, and keep their archive organized with less noise.</p>
+            </div>
+          </div>
+          <ul class="list">
+            <li><span class="bullet"></span><span>Open the app or share content into it with a short path to saving.</span></li>
+            <li><span class="bullet"></span><span>Keep interactions clear with polished controls rather than a cluttered utility layout.</span></li>
+            <li><span class="bullet"></span><span>Use private vault behavior when saved content should not remain openly visible on the device.</span></li>
+          </ul>
+        </div>
+        <div class="cta-box">
+          <h3>Need legal or support details?</h3>
+          <p>Privacy and terms are linked clearly, and support details remain aligned with the shared config used across product pages.</p>
+          <a class="btn-primary" id="privacy-link" href="/reelVault/privacy">Read Privacy Policy</a>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <h2>What You Get</h2>
-      <p class="title-sub">Everything below is handled inside the iOS app with one tap flows.</p>
-
-      <div class="grid">
-        <article class="card">
-          <h3>Smart Share Flow</h3>
-          <p>Share from Instagram directly to app and start saving instantly.</p>
-        </article>
-        <article class="card">
-          <h3>Private Vault</h3>
-          <p>Protect sensitive downloads with biometric or PIN-based lock.</p>
-        </article>
-        <article class="card">
-          <h3>High-Speed UX</h3>
-          <p>Fast loading, responsive controls, and polished app-level interactions.</p>
-        </article>
-      </div>
-
-      <div class="cta">
+    <section id="trust">
+      <div class="section-head">
         <div>
-          <h3>Ready to use <span data-app-name>instaReel</span>?</h3>
-          <p>Install from App Store and start saving content in seconds.</p>
+          <h2>Signals that improve credibility</h2>
+          <p>Professional product pages do more than decorate. They remove doubt and make support, ownership, and app intent obvious.</p>
         </div>
-        <a class="btn-appstore" href="https://apps.apple.com/us/app/instadownloaderapp/id6759930695" target="_blank" rel="noopener">Get the App</a>
+      </div>
+      <div class="proof-grid">
+        <article class="proof-card">
+          <h3>Clear App Store destination</h3>
+          <p>Users can move directly to the official listing without guessing where the real product lives.</p>
+        </article>
+        <article class="proof-card">
+          <h3>Public legal surfaces</h3>
+          <p>Privacy and terms are exposed as first-class parts of the product instead of buried footer afterthoughts.</p>
+        </article>
+        <article class="proof-card">
+          <h3>Visible contact ownership</h3>
+          <p>Support email and phone are easy to verify, which makes the product feel more accountable and release-ready.</p>
+        </article>
       </div>
     </section>
   </main>
 
-  <footer>
-    <p>
-      © 2026 <span data-app-name>instaReel</span> •
-      <a href="/reelVault/privacy-policy">Privacy</a> •
-      <a href="/reelVault/terms-and-conditions">Terms</a>
-    </p>
+  <footer class="page">
+    <div class="footer-inner">
+      <span>&copy; 2026 <span data-app-name>instaReel</span></span>
+      <span id="footer-contact">Support: info.elitepdf@gmail.com</span>
+    </div>
   </footer>
 
   <script>
-    const APP_NAME = "instaReel";
+    const config = window.getAppConfig("reelVault");
+    document.title = config.appName;
     document.querySelectorAll("[data-app-name]").forEach((el) => {
-      el.textContent = APP_NAME;
+      el.textContent = config.appName;
     });
+    document.getElementById("release-label").textContent = config.releaseStatus;
+    document.getElementById("download-link").href = config.appStoreUrl;
+    document.getElementById("listing-link").href = config.appStoreUrl;
+    document.getElementById("privacy-link").href = config.privacyUrl;
+    document.getElementById("support-email").textContent = config.supportEmail;
+    document.getElementById("support-phone").textContent = config.supportPhone;
+    document.getElementById("privacy-url-text").textContent = config.privacyUrl.replace("https://", "");
+    document.getElementById("footer-contact").textContent = `Support: ${config.supportEmail} • ${config.supportPhone}`;
   </script>
 </body>
 </html>

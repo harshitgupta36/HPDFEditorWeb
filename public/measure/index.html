@@ -3,386 +3,491 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-
-  <title>Measure AR — Accurate AR Measurement App | Lakvanta Technologies</title>
-
-  <meta name="description"
-        content="Measure AR is an iOS app that lets you measure distance, area and shapes using augmented reality. Accurate, fast and privacy-first. Built by Lakvanta Technologies." />
-
-  <link rel="icon" href="/public/measure/logo.png" />
-
-  <!-- FONT -->
+  <title>Measure AR</title>
+  <meta name="description" content="Measure AR is a professional AR measurement app for fast distance, area, and custom shape calculations on iPhone." />
+  <script src="/config.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
-
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
   <style>
     :root {
-      --primary:#4f46e5;
-      --accent:#22c55e;
-      --bg:#050814;
-      --card:#0f172a;
-      --text:#e5e7f5;
-      --muted:#9ca3c7;
-      --border:rgba(148,163,184,.35);
-      --radius:18px;
-      --radius-full:999px;
-      --shadow:0 22px 60px rgba(15,23,42,.75);
+      --bg: #040812;
+      --bg-2: #091120;
+      --panel: rgba(11, 19, 35, 0.92);
+      --card: rgba(14, 25, 44, 0.94);
+      --line: rgba(148, 163, 184, 0.18);
+      --text: #edf2ff;
+      --muted: #a4b0c9;
+      --primary: #6d74ff;
+      --accent: #2cd39a;
+      --shadow: 0 26px 80px rgba(0, 0, 0, 0.38);
+      --radius-xl: 30px;
+      --radius-lg: 20px;
+      --pill: 999px;
     }
 
-    *{margin:0;padding:0;box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      font-family:Inter,system-ui;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+      color: var(--text);
       background:
-        radial-gradient(circle at top left, rgba(99,102,241,.18), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(34,197,94,.20), transparent 60%),
-        linear-gradient(145deg,#05030a,#050814);
-      color:var(--text);
-      line-height:1.6;
-    }
-    a{text-decoration:none;color:inherit}
-    ul{list-style:none}
-
-    .container{max-width:1120px;margin:auto;padding:0 20px}
-
-    /* HEADER */
-    header{
-      position:sticky;top:0;z-index:100;
-      backdrop-filter:blur(18px);
-      background:rgba(5,8,20,.88);
-      border-bottom:1px solid var(--border);
-    }
-    .nav{
-      display:flex;align-items:center;justify-content:space-between;
-      padding:14px 0;
-    }
-    .brand{display:flex;align-items:center;gap:10px}
-    .brand img{width:40px;height:40px;border-radius:14px}
-    .brand strong{font-size:18px;font-weight:800}
-    nav a{
-      margin-left:18px;
-      font-size:14px;
-      color:var(--muted);
-    }
-    nav a:hover{color:var(--text)}
-
-    .btn-nav{
-      padding:8px 18px;
-      border-radius:var(--radius-full);
-      background:linear-gradient(120deg,var(--primary),var(--accent));
-      font-size:13px;
-      font-weight:600;
-      color:#fff;
-      box-shadow:var(--shadow);
+        radial-gradient(900px 540px at 0% 0%, rgba(109, 116, 255, 0.18), transparent 56%),
+        radial-gradient(900px 540px at 100% 100%, rgba(44, 211, 154, 0.16), transparent 56%),
+        linear-gradient(180deg, var(--bg), var(--bg-2));
+      min-height: 100vh;
+      line-height: 1.6;
     }
 
-    /* HERO */
-    .hero{padding:60px 0 80px}
-    .hero-grid{
-      display:grid;
-      grid-template-columns:minmax(0,3fr) minmax(0,2.5fr);
-      gap:40px;
-      align-items:center;
+    a { color: inherit; text-decoration: none; }
+    .page { max-width: 1160px; margin: 0 auto; padding: 0 22px; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(4, 8, 18, 0.74);
+      border-bottom: 1px solid var(--line);
     }
 
-    .pill{
-      display:inline-flex;
-      gap:8px;
-      padding:6px 12px;
-      font-size:12px;
-      border-radius:var(--radius-full);
-      background:rgba(15,23,42,.85);
-      border:1px solid var(--border);
-      color:var(--muted);
-      margin-bottom:12px;
-    }
-    .pill span{color:var(--accent);font-weight:600}
-
-    h1{
-      font-size:42px;
-      line-height:1.1;
-      letter-spacing:-.05em;
-      margin-bottom:14px;
-    }
-    h1 span{
-      background:linear-gradient(120deg,#818cf8,#4ade80);
-      -webkit-background-clip:text;
-      color:transparent;
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
     }
 
-    .subtitle{
-      font-size:16px;
-      max-width:520px;
-      color:var(--muted);
-      margin-bottom:22px;
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      font-size: 18px;
     }
 
-    .tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
-    .tag{
-      font-size:11px;
-      padding:4px 10px;
-      border-radius:var(--radius-full);
-      background:rgba(148,163,184,.15);
-      border:1px solid var(--border);
-      color:var(--muted);
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
     }
 
-    .actions{display:flex;gap:14px;flex-wrap:wrap}
-    .btn-primary{
-      padding:12px 24px;
-      border-radius:var(--radius-full);
-      background:linear-gradient(120deg,var(--primary),var(--accent));
-      color:#fff;
-      font-weight:600;
-      box-shadow:var(--shadow);
-    }
-    .btn-ghost{
-      padding:10px 16px;
-      border-radius:var(--radius-full);
-      background:rgba(15,23,42,.75);
-      border:1px solid var(--border);
-      color:var(--muted);
-      font-size:14px;
+    .menu {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
     }
 
-    /* HERO CARD */
-    .hero-card{
-      background:rgba(15,23,42,.92);
-      border-radius:26px;
-      padding:22px;
-      box-shadow:var(--shadow);
-      border:1px solid var(--border);
-    }
-    .hero-card-header{
-      display:flex;gap:12px;align-items:center;margin-bottom:14px;
-    }
-    .badge{
-      font-size:11px;
-      padding:4px 10px;
-      border-radius:var(--radius-full);
-      background:rgba(34,197,94,.18);
-      color:var(--accent);
-      font-weight:600;
-      display:inline-block;
-    }
-    .hero-card ul li{
-      display:flex;gap:8px;
-      font-size:14px;
-      color:var(--muted);
-      margin-bottom:8px;
-    }
-    .dot{
-      width:6px;height:6px;border-radius:999px;
-      background:var(--accent);margin-top:8px;
+    .menu a {
+      color: var(--muted);
+      padding: 8px 13px;
+      border-radius: var(--pill);
+      border: 1px solid var(--line);
+      background: rgba(14, 25, 44, 0.6);
+      font-size: 13px;
     }
 
-    /* SECTION BASE */
-    section{padding:60px 0}
-    .section-title{
-      font-size:26px;
-      letter-spacing:-.03em;
-      margin-bottom:6px;
-    }
-    .section-sub{
-      color:var(--muted);
-      max-width:620px;
-      margin-bottom:28px;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:22px;
+    .btn-primary,
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: var(--pill);
+      font-weight: 700;
+      font-size: 14px;
+      transition: transform .2s ease;
     }
 
-    .card{
-      background:rgba(15,23,42,.9);
-      border-radius:var(--radius);
-      border:1px solid var(--border);
-      padding:22px;
-      box-shadow:var(--shadow);
-    }
-    .card h3{margin-bottom:6px}
-    .card p{color:var(--muted);font-size:14px}
-
-    footer{
-      border-top:1px solid var(--border);
-      padding:22px 0;
-      text-align:center;
-      font-size:12px;
-      color:var(--muted);
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      box-shadow: 0 16px 48px rgba(68, 97, 255, 0.28);
     }
 
-    @media(max-width:860px){
-      .hero-grid{grid-template-columns:1fr}
-      h1{font-size:32px}
+    .btn-secondary {
+      background: rgba(14, 25, 44, 0.75);
+      border: 1px solid var(--line);
+      color: var(--text);
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover { transform: translateY(-2px); }
+
+    .hero {
+      padding: 56px 0 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(300px, 0.88fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-panel,
+    .hero-card,
+    .section-card,
+    .feature-card,
+    .persona-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel { padding: 34px; }
+    .hero-card { padding: 24px; }
+
+    .pill {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 7px 12px;
+      border-radius: var(--pill);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+
+    .pill span { color: var(--accent); font-weight: 700; }
+
+    h1 {
+      font-size: clamp(40px, 6vw, 64px);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+      margin-bottom: 16px;
+    }
+
+    h1 .accent {
+      background: linear-gradient(135deg, #9ea3ff, #61efbf);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-copy {
+      max-width: 640px;
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 22px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .hero-stat {
+      padding: 16px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .hero-stat strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-stat span {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .mini-list {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .mini-list li {
+      display: flex;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      margin-top: 7px;
+      flex: 0 0 auto;
+    }
+
+    section { padding: 24px 0; }
+    .section-head {
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+    }
+
+    .section-head h2 {
+      font-size: 30px;
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+
+    .section-head p {
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .feature-grid,
+    .persona-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .feature-card,
+    .persona-card {
+      padding: 22px;
+    }
+
+    .feature-card h3,
+    .persona-card h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p,
+    .persona-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .section-card {
+      padding: 26px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .workflow {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .workflow li {
+      display: flex;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .num {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: rgba(109, 116, 255, 0.16);
+      color: #c8d0ff;
+      font-size: 12px;
+      font-weight: 800;
+      flex: 0 0 auto;
+      margin-top: 2px;
+    }
+
+    .cta-box {
+      padding: 22px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(109, 116, 255, 0.1), rgba(44, 211, 154, 0.08));
+      border: 1px solid rgba(109, 116, 255, 0.16);
+    }
+
+    .cta-box h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .cta-box p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    footer {
+      padding: 30px 0 44px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .section-card,
+      .feature-grid,
+      .persona-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
-
 <body>
-
-<header>
-  <div class="container nav">
-    <div class="brand">
-      <img src="/measure/logo.png" alt="Measure AR"/>
-      <strong>Measure AR</strong>
-    </div>
-    <nav>
-      <a href="#features">Features</a>
-      <a href="#usecases">Use-cases</a>
-      <a href="#privacy">Privacy</a>
-      <a class="btn-nav"
-         href="itms-apps://itunes.apple.com/app/id6642650935">
-        Download
+  <header>
+    <div class="page nav">
+      <a class="brand" href="/measure">
+        <img src="/measure/logo.png" alt="Measure AR" />
+        <strong>Measure AR</strong>
       </a>
-    </nav>
-  </div>
-</header>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="container hero-grid">
-
-    <div>
-      <div class="pill">
-        <span>LIVE</span> App Store · iOS
-      </div>
-
-      <h1>
-        Measure the real world.<br/>
-        <span>Powered by AR.</span>
-      </h1>
-
-      <p class="subtitle">
-        Measure AR lets you measure distance, area and custom shapes using your
-        iPhone camera and augmented reality. Accurate, fast and completely on-device.
-      </p>
-
-      <div class="tags">
-        <span class="tag">ARKit</span>
-        <span class="tag">Distance</span>
-        <span class="tag">Area</span>
-        <span class="tag">Metric & Imperial</span>
-        <span class="tag">Privacy-first</span>
-      </div>
-
-      <div class="actions">
-        <a class="btn-primary"
-           href="itms-apps://itunes.apple.com/app/id6642650935">
-          Download Measure AR
-        </a>
-        <a class="btn-ghost" href="#features">
-          Explore features
-        </a>
-      </div>
+      <nav class="menu">
+        <a href="#features">Features</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#audience">Audience</a>
+        <a href="/measure/privacy">Privacy</a>
+        <a class="btn-secondary" id="nav-download" href="#" target="_blank" rel="noopener">Download</a>
+      </nav>
     </div>
+  </header>
 
-    <aside class="hero-card">
-      <div class="hero-card-header">
-        <img src="/measure/logo.png" style="width:48px;height:48px;border-radius:16px"/>
-        <div>
-          <span class="badge">AVAILABLE NOW</span>
-          <h3>Measure AR</h3>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-panel">
+        <div class="pill"><span id="release-badge">LIVE</span> App Store release • iPhone measurement workflow</div>
+        <h1>Professional spatial measuring, <span class="accent">without the tape measure</span>.</h1>
+        <p class="hero-copy">
+          Measure AR helps builders, designers, students, and home users capture distance, area, and custom layouts directly on iPhone with a more polished, product-ready workflow.
+        </p>
+        <div class="hero-actions">
+          <a class="btn-primary" id="hero-download" href="#" target="_blank" rel="noopener">Download Measure AR</a>
+          <a class="btn-secondary" href="#features">Explore features</a>
+        </div>
+        <div class="hero-grid">
+          <div class="hero-stat"><strong>Status</strong><span id="availability-badge">AVAILABLE NOW</span></div>
+          <div class="hero-stat"><strong>Privacy</strong><span>On-device first</span></div>
+          <div class="hero-stat"><strong>Support</strong><span id="support-email">info.elitepdf@gmail.com</span></div>
         </div>
       </div>
 
-      <ul>
-        <li><span class="dot"></span><span>Measure straight lines accurately</span></li>
-        <li><span class="dot"></span><span>Calculate area of rooms & surfaces</span></li>
-        <li><span class="dot"></span><span>Draw custom polygons</span></li>
-        <li><span class="dot"></span><span>Supports cm, m, ft, inch & more</span></li>
-        <li><span class="dot"></span><span>No cloud upload — works offline</span></li>
-      </ul>
-    </aside>
+      <aside class="hero-card">
+        <h2 style="font-size:20px; margin-bottom:10px;">What the app covers well</h2>
+        <ul class="mini-list">
+          <li><span class="dot"></span><span>Quick line and surface measurements with a simple visual flow.</span></li>
+          <li><span class="dot"></span><span>Area calculations for rooms, walls, and planning work without exporting data to the cloud.</span></li>
+          <li><span class="dot"></span><span>Presentation-ready UX for users who need accuracy and clarity, not a hobby-project interface.</span></li>
+        </ul>
+      </aside>
+    </section>
 
-  </div>
-</section>
+    <section id="features">
+      <div class="section-head">
+        <div>
+          <h2>Core capabilities</h2>
+          <p>Structured around real use cases like room planning, layout checks, renovation prep, and field validation.</p>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <h3>Distance measurement</h3>
+          <p>Measure edges, furniture spans, wall width, and placement distances with a focused AR workflow.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Area calculation</h3>
+          <p>Capture surface area for spaces, rooms, and planning scenarios without switching between multiple tools.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Custom shape support</h3>
+          <p>Go beyond straight lines with polygon-based layouts for more realistic floor or surface measurement tasks.</p>
+        </article>
+      </div>
+    </section>
 
-<!-- FEATURES -->
-<section id="features">
-  <div class="container">
-    <h2 class="section-title">Core Features</h2>
-    <p class="section-sub">
-      Designed for builders, designers, students and anyone who needs fast,
-      reliable measurements.
-    </p>
+    <section id="workflow">
+      <div class="section-card">
+        <div>
+          <div class="section-head" style="margin-bottom:14px;">
+            <div>
+              <h2>Designed for speed in the field</h2>
+              <p>The experience is intentionally simple so users can move from observation to measurement with minimal friction.</p>
+            </div>
+          </div>
+          <ul class="workflow">
+            <li><span class="num">1</span><span>Open the app and point at the space or surface you need to evaluate.</span></li>
+            <li><span class="num">2</span><span>Mark distance or define a shape using a visual AR guide instead of manual guesswork.</span></li>
+            <li><span class="num">3</span><span>Review measurements in a clear interface built for repeat use, not novelty.</span></li>
+          </ul>
+        </div>
+        <div class="cta-box">
+          <h3>Privacy stays straightforward</h3>
+          <p>Measure AR is positioned as an on-device, privacy-first utility. That matters for trust, App Store review clarity, and professional presentation.</p>
+          <a class="btn-primary" id="privacy-link" href="/measure/privacy">Read Privacy Policy</a>
+        </div>
+      </div>
+    </section>
 
-    <div class="grid">
-      <div class="card">
-        <h3>Distance Measurement</h3>
-        <p>Measure lines and edges with AR precision.</p>
+    <section id="audience">
+      <div class="section-head">
+        <div>
+          <h2>Who it is for</h2>
+          <p>The product is framed for practical users, not just demo scenarios.</p>
+        </div>
       </div>
-      <div class="card">
-        <h3>Area Calculation</h3>
-        <p>Measure rooms, walls and surfaces instantly.</p>
+      <div class="persona-grid">
+        <article class="persona-card">
+          <h3>Interior designers</h3>
+          <p>Review spacing, wall area, and object placement quickly during concept and fit checks.</p>
+        </article>
+        <article class="persona-card">
+          <h3>Students and planners</h3>
+          <p>Capture measurements for assignments, room planning, or presentation preparation without carrying extra hardware.</p>
+        </article>
+        <article class="persona-card">
+          <h3>DIY and home users</h3>
+          <p>Estimate distances and surfaces for furniture, decor, renovation, and general home projects.</p>
+        </article>
       </div>
-      <div class="card">
-        <h3>Custom Shapes</h3>
-        <p>Draw polygons and complex layouts.</p>
-      </div>
-      <div class="card">
-        <h3>Unit Conversion</h3>
-        <p>Metric and imperial units supported.</p>
-      </div>
+    </section>
+  </main>
+
+  <footer class="page">
+    <div class="footer-inner">
+      <span>&copy; 2026 Measure AR</span>
+      <span id="footer-contact">Support: info.elitepdf@gmail.com</span>
     </div>
-  </div>
-</section>
+  </footer>
 
-<!-- USE CASES -->
-<section id="usecases">
-  <div class="container">
-    <h2 class="section-title">Who is it for?</h2>
-
-    <div class="grid">
-      <div class="card">
-        <h3>Interior Designers</h3>
-        <p>Measure rooms and furniture spacing accurately.</p>
-      </div>
-      <div class="card">
-        <h3>Students</h3>
-        <p>Quick measurements for projects and assignments.</p>
-      </div>
-      <div class="card">
-        <h3>DIY & Home Users</h3>
-        <p>No tape measure needed — just your phone.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRIVACY -->
-<section id="privacy">
-  <div class="container">
-    <h2 class="section-title">Privacy-first by design</h2>
-    <p class="section-sub">
-      Measure AR processes everything on your device.
-      No images or measurements are uploaded to our servers.
-    </p>
-
-    <div class="card">
-      <p>
-        We do not collect personal data or measurement content.
-        Analytics (if enabled) are limited to crashes and performance only.
-      </p>
-      <p style="margin-top:8px">
-        Read full policy:
-        <a href="/measure/privacy" style="text-decoration:underline">
-          Privacy Policy
-        </a>
-      </p>
-    </div>
-  </div>
-</section>
-
-<footer>
-  © <span id="year"></span> Lakvanta Technologies · Measure AR
-</footer>
-
-<script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-</script>
-
+  <script>
+    const config = window.getAppConfig("measure");
+    document.title = config.appName;
+    document.getElementById("nav-download").href = config.appStoreUrl;
+    document.getElementById("hero-download").href = config.appStoreUrl;
+    document.getElementById("privacy-link").href = config.privacyUrl;
+    document.getElementById("release-badge").textContent = config.isReleased ? "LIVE" : config.releaseStatus;
+    document.getElementById("availability-badge").textContent = config.isReleased ? "AVAILABLE NOW" : config.releaseStatus.toUpperCase();
+    document.getElementById("support-email").textContent = config.supportEmail;
+    document.getElementById("footer-contact").textContent = `Support: ${config.supportEmail} • ${config.supportPhone}`;
+  </script>
 </body>
 </html>

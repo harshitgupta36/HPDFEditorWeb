@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>instaReel Terms & Conditions</title>
+  <script src="/config.js"></script>
   <meta name="description" content="Terms and conditions for instaReel." />
   <style>
     :root {
@@ -176,7 +177,7 @@
       <div class="nav">
         <a class="brand" href="/reelVault">
           <img src="reelVault/logo.png" alt="instaReel" />
-          <span>instaReel</span>
+          <span id="app-name">instaReel</span>
         </a>
         <nav class="menu">
           <a href="/reelVault">Home</a>
@@ -185,8 +186,8 @@
         </nav>
       </div>
       <div class="url-row">
-        <a class="url-chip" href="https://lakvanta.com/reelVault/privacy" target="_blank" rel="noopener">URL: lakvanta.com/reelVault/privacy</a>
-        <a class="url-chip" href="https://lakvanta.com/reelVault/terms" target="_blank" rel="noopener">URL: lakvanta.com/reelVault/terms</a>
+        <a class="url-chip" id="privacy-chip" href="#" target="_blank" rel="noopener"></a>
+        <a class="url-chip" id="terms-chip" href="#" target="_blank" rel="noopener"></a>
       </div>
     </div>
   </header>
@@ -194,7 +195,7 @@
   <main class="wrap">
     <section class="hero">
       <h1>Terms & Conditions</h1>
-      <p>Effective date: March 3, 2026</p>
+      <p>Effective date: <span id="effective-date">March 3, 2026</span></p>
     </section>
 
     <section class="policy">
@@ -218,7 +219,19 @@
   </main>
 
   <footer>
-    <p>© 2026 instaReel</p>
+    <p>© 2026 <span id="footer-app-name">instaReel</span></p>
   </footer>
+  <script>
+    const config = window.getAppConfig("reelVault");
+    document.getElementById("app-name").textContent = config.appName;
+    document.getElementById("footer-app-name").textContent = config.appName;
+    document.getElementById("effective-date").textContent = config.effectiveDate;
+    const privacyChip = document.getElementById("privacy-chip");
+    privacyChip.href = config.privacyUrl;
+    privacyChip.textContent = `URL: ${config.privacyUrl.replace("https://", "")}`;
+    const termsChip = document.getElementById("terms-chip");
+    termsChip.href = config.termsUrl;
+    termsChip.textContent = `URL: ${config.termsUrl.replace("https://", "")}`;
+  </script>
 </body>
 </html>

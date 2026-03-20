@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Terms & Conditions | Bhakti Sangrah</title>
+<script src="/config.js"></script>
 
 <style>
 :root {
@@ -164,8 +165,8 @@ a:hover {
       <p>
         Your privacy is important to us. Please review our Privacy Policy here:
         <br />
-        <a href="https://lakvanta.com/bhaktiSangrah/privacy" target="_blank">
-          https://lakvanta.com/bhaktiSangrah/privacy
+        <a id="privacy-link" href="#" target="_blank">
+          <span id="privacy-link-text"></span>
         </a>
       </p>
     </div>
@@ -191,16 +192,27 @@ a:hover {
       <p>
         If you have any questions regarding these Terms, contact us at:
         <br />
-        <strong>Email:</strong> vighnablitz@gmail.com
+        <strong>Email:</strong> <a id="terms-email" href="#"></a>
       </p>
     </div>
 
     <div class="footer">
-      Last Updated: January 08, 2026
+      Last Updated: <span id="effective-date">January 08, 2026</span>
     </div>
 
   </div>
 </div>
+
+<script>
+  const config = window.getAppConfig("bhaktiSangrah");
+  const privacyLink = document.getElementById("privacy-link");
+  privacyLink.href = config.privacyUrl;
+  document.getElementById("privacy-link-text").textContent = config.privacyUrl;
+  const termsEmail = document.getElementById("terms-email");
+  termsEmail.href = `mailto:${config.legalEmail}`;
+  termsEmail.textContent = config.legalEmail;
+  document.getElementById("effective-date").textContent = config.effectiveDate;
+</script>
 
 </body>
 </html>
