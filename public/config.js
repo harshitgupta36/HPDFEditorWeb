@@ -55,7 +55,7 @@ window.APP_CONFIGS = {
     websiteUrl: "https://lakvanta.com/iptvPlayer",
     privacyUrl: "https://lakvanta.com/iptvPlayer/privacy",
     termsUrl: "https://lakvanta.com/iptvPlayer/terms",
-    appStoreUrl: "https://apps.apple.com/app/id0000000000",
+    appStoreUrl: "https://apps.apple.com/app/id6760668860",
     playStoreUrl: "",
     releaseStatus: "Coming Soon",
     isReleased: false,
