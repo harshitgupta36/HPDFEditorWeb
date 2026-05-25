@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TinyGenius World</title>
+
+    <link rel="icon" type="image/png" href="/tinygenius/logo.png" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #5fd0ff 0%, #8d72ff 100%);
+            color: #1e293b;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        header {
+            padding: 24px 0;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo img {
+            width: 60px;
+            height: 60px;
+            border-radius: 18px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .logo h1 {
+            color: white;
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 18px;
+        }
+
+        .nav-links a {
+            color: white;
+            font-weight: 600;
+            opacity: 0.9;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            padding: 80px 0 120px;
+        }
+
+        .hero-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            align-items: center;
+            gap: 50px;
+        }
+
+        .hero-text h2 {
+            font-size: 60px;
+            line-height: 1.1;
+            color: white;
+            margin-bottom: 24px;
+            font-weight: 900;
+        }
+
+        .hero-text p {
+            font-size: 20px;
+            color: rgba(255,255,255,0.92);
+            line-height: 1.7;
+            margin-bottom: 34px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 16px 28px;
+            border-radius: 18px;
+            font-weight: 700;
+            transition: 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #5b6cff;
+            box-shadow: 0 10px 30px rgba(255,255,255,0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.25);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.22);
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 460px;
+            border-radius: 50px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.18);
+        }
+
+        .features {
+            background: white;
+            border-radius: 40px 40px 0 0;
+            padding: 100px 0;
+            margin-top: -20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h3 {
+            font-size: 42px;
+            margin-bottom: 16px;
+            color: #1e293b;
+        }
+
+        .section-title p {
+            color: #64748b;
+            font-size: 18px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 28px;
+        }
+
+        .card {
+            background: #f8fbff;
+            padding: 32px;
+            border-radius: 28px;
+            transition: 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .emoji {
+            font-size: 44px;
+            margin-bottom: 20px;
+        }
+
+        .card h4 {
+            font-size: 24px;
+            margin-bottom: 14px;
+            color: #0f172a;
+        }
+
+        .card p {
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        footer {
+            background: #0f172a;
+            color: rgba(255,255,255,0.85);
+            padding: 50px 0;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.85);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+
+            .hero {
+                padding-top: 40px;
+            }
+
+            .hero-text h2 {
+                font-size: 42px;
+            }
+
+            .hero-text p {
+                font-size: 18px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+
+                <div class="logo">
+                    <img src="tinygenius/logo.png" alt="TinyGenius Logo">
+                    <h1>TinyGenius</h1>
+                </div>
+
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="tinygenius/privacy.html">Privacy</a>
+                    <a href="tinygenius/terms.html">Terms</a>
+                </div>
+
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+
+            <div class="hero-wrapper">
+
+                <div class="hero-text">
+                    <h2>
+                        Smart Learning <br>
+                        For Little Minds ✨
+                    </h2>
+
+                    <p>
+                        TinyGenius helps children learn through fun games,
+                        creative activities, colorful experiences, and
+                        interactive education designed for growing minds.
+                    </p>
+
+                    <div class="buttons">
+                        <a href="#" class="btn btn-primary">
+                            Download App
+                        </a>
+
+                        <a href="#features" class="btn btn-secondary">
+                            Explore Features
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-image">
+                    <img src="tinygenius/logo.png" alt="TinyGenius App">
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="features" id="features">
+
+        <div class="container">
+
+            <div class="section-title">
+                <h3>Why Kids Love TinyGenius</h3>
+
+                <p>
+                    Interactive learning designed with creativity,
+                    safety, and fun in mind.
+                </p>
+            </div>
+
+            <div class="feature-grid">
+
+                <div class="card">
+                    <div class="emoji">🎨</div>
+                    <h4>Creative Learning</h4>
+                    <p>
+                        Drawing, colors, letters, numbers,
+                        puzzles, and engaging educational activities.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="emoji">⭐</div>
+                    <h4>Reward System</h4>
+                    <p>
+                        Kids stay motivated with stars,
+                        achievements, and progress tracking.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="emoji">🔒</div>
+                    <h4>Parent Safe</h4>
+                    <p>
+                        Parent-controlled profiles and secure
+                        learning environments for children.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="emoji">📚</div>
+                    <h4>Fun Education</h4>
+                    <p>
+                        Learning becomes exciting with games,
+                        animations, and playful interactions.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <footer>
+
+        <div class="container">
+
+            <div class="footer-content">
+
+                <div>
+                    © 2026 TinyGenius World. All rights reserved.
+                </div>
+
+                <div class="footer-links">
+                    <a href="tinygenius/privacy.html">Privacy Policy</a>
+                    <a href="tinygenius/terms.html">Terms & Conditions</a>
+                    <a href="mailto:tinygeniushubapp@gmail.com">
+                        Contact
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+</html>
