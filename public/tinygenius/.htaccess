@@ -1,0 +1,11 @@
+DirectoryIndex index.html
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /tinygenius/
+
+  # Clean URLs: /privacy and /terms → HTML files at site root
+  RewriteRule ^privacy/?$ privacy.html [L]
+  RewriteRule ^terms/?$ terms.html [L]
+</IfModule>

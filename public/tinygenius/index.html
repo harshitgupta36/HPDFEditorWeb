@@ -1,408 +1,395 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TinyGenius World</title>
-
-    <link rel="icon" type="image/png" href="/tinygenius/logo.png" />
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: linear-gradient(135deg, #5fd0ff 0%, #8d72ff 100%);
-            color: #1e293b;
-            overflow-x: hidden;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        header {
-            padding: 24px 0;
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .logo img {
-            width: 60px;
-            height: 60px;
-            border-radius: 18px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-
-        .logo h1 {
-            color: white;
-            font-size: 28px;
-            font-weight: 800;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 18px;
-        }
-
-        .nav-links a {
-            color: white;
-            font-weight: 600;
-            opacity: 0.9;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover {
-            opacity: 1;
-            transform: translateY(-2px);
-        }
-
-        .hero {
-            padding: 80px 0 120px;
-        }
-
-        .hero-wrapper {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            align-items: center;
-            gap: 50px;
-        }
-
-        .hero-text h2 {
-            font-size: 60px;
-            line-height: 1.1;
-            color: white;
-            margin-bottom: 24px;
-            font-weight: 900;
-        }
-
-        .hero-text p {
-            font-size: 20px;
-            color: rgba(255,255,255,0.92);
-            line-height: 1.7;
-            margin-bottom: 34px;
-        }
-
-        .buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .btn {
-            padding: 16px 28px;
-            border-radius: 18px;
-            font-weight: 700;
-            transition: 0.3s ease;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: white;
-            color: #5b6cff;
-            box-shadow: 0 10px 30px rgba(255,255,255,0.35);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-4px);
-        }
-
-        .btn-secondary {
-            background: rgba(255,255,255,0.15);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.25);
-            backdrop-filter: blur(10px);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.22);
-        }
-
-        .hero-image {
-            display: flex;
-            justify-content: center;
-        }
-
-        .hero-image img {
-            width: 100%;
-            max-width: 460px;
-            border-radius: 50px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.18);
-        }
-
-        .features {
-            background: white;
-            border-radius: 40px 40px 0 0;
-            padding: 100px 0;
-            margin-top: -20px;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title h3 {
-            font-size: 42px;
-            margin-bottom: 16px;
-            color: #1e293b;
-        }
-
-        .section-title p {
-            color: #64748b;
-            font-size: 18px;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 28px;
-        }
-
-        .card {
-            background: #f8fbff;
-            padding: 32px;
-            border-radius: 28px;
-            transition: 0.3s ease;
-            border: 1px solid #e2e8f0;
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-        }
-
-        .emoji {
-            font-size: 44px;
-            margin-bottom: 20px;
-        }
-
-        .card h4 {
-            font-size: 24px;
-            margin-bottom: 14px;
-            color: #0f172a;
-        }
-
-        .card p {
-            color: #64748b;
-            line-height: 1.7;
-        }
-
-        footer {
-            background: #0f172a;
-            color: rgba(255,255,255,0.85);
-            padding: 50px 0;
-        }
-
-        .footer-content {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .footer-links a {
-            color: rgba(255,255,255,0.85);
-        }
-
-        .footer-links a:hover {
-            color: white;
-        }
-
-        @media (max-width: 768px) {
-
-            .hero {
-                padding-top: 40px;
-            }
-
-            .hero-text h2 {
-                font-size: 42px;
-            }
-
-            .hero-text p {
-                font-size: 18px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .buttons {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-                text-align: center;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="TinyGenius Hub — safe, fun learning for kids ages 1–9. Parent-controlled profiles, tracing, shapes, math, poems, Hindi, and rewards." />
+  <meta name="theme-color" content="#7dd3fc" />
+  <title>TinyGenius Hub — Learning World for Kids 1–9</title>
+  <link rel="icon" type="image/png" href="/tinygenius/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="/tinygenius/css/site.css" />
 </head>
-
 <body>
 
-    <header>
-        <div class="container">
-            <nav>
-
-                <div class="logo">
-                    <img src="tinygenius/logo.png" alt="TinyGenius Logo">
-                    <h1>TinyGenius</h1>
-                </div>
-
-                <div class="nav-links">
-                    <a href="#features">Features</a>
-                    <a href="tinygenius/privacy.html">Privacy</a>
-                    <a href="tinygenius/terms.html">Terms</a>
-                </div>
-
-            </nav>
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav">
+        <a href="/tinygenius/index.html" class="brand">
+          <img src="/tinygenius/logo.png" alt="TinyGenius" width="52" height="52" />
+          <span class="brand-name">TinyGenius</span>
+        </a>
+        <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false">☰</button>
+        <div class="nav-links">
+          <a href="#features" data-nav="features">Features</a>
+          <a href="#ages" data-nav="ages">Ages 1–9</a>
+          <a href="#parents" data-nav="parents">For Parents</a>
+          <a href="/tinygenius/privacy" data-nav="privacy">Privacy</a>
+          <a href="/tinygenius/terms" data-nav="terms">Terms</a>
+          <a href="https://apps.apple.com/us/app/tiny-genius-hub/id6772540874" class="nav-cta" target="_blank" rel="noopener noreferrer">Get the App</a>
         </div>
-    </header>
+      </nav>
+    </div>
+  </header>
 
-    <section class="hero">
-        <div class="container">
-
-            <div class="hero-wrapper">
-
-                <div class="hero-text">
-                    <h2>
-                        Smart Learning <br>
-                        For Little Minds ✨
-                    </h2>
-
-                    <p>
-                        TinyGenius helps children learn through fun games,
-                        creative activities, colorful experiences, and
-                        interactive education designed for growing minds.
-                    </p>
-
-                    <div class="buttons">
-                        <a href="#" class="btn btn-primary">
-                            Download App
-                        </a>
-
-                        <a href="#features" class="btn btn-secondary">
-                            Explore Features
-                        </a>
-                    </div>
-                </div>
-
-                <div class="hero-image">
-                    <img src="tinygenius/logo.png" alt="TinyGenius App">
-                </div>
-
-            </div>
-
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-deco" aria-hidden="true">
+      <span class="deco star">⭐</span>
+      <span class="deco star">✨</span>
+      <span class="deco star">🌟</span>
+      <span class="deco star">💫</span>
+    </div>
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <div class="hero-badge">🛡️ Parent-safe · Ages 1–9</div>
+        <h1>
+          Your pocket
+          <span class="highlight">learning companion</span>
+        </h1>
+        <p class="hero-lead">
+          TinyGenius Hub helps children ages 1–9 learn with games, poems, tracing, and rewards — with parent profiles and a lock PIN you control.
+        </p>
+        <div class="hero-pills">
+          <span class="pill">🔒 Parent lock</span>
+          <span class="pill">⭐ Stars & rewards</span>
+          <span class="pill">📚 English & Hindi</span>
+          <span class="pill">☁️ Cloud sync</span>
         </div>
-    </section>
-
-    <section class="features" id="features">
-
-        <div class="container">
-
-            <div class="section-title">
-                <h3>Why Kids Love TinyGenius</h3>
-
-                <p>
-                    Interactive learning designed with creativity,
-                    safety, and fun in mind.
-                </p>
-            </div>
-
-            <div class="feature-grid">
-
-                <div class="card">
-                    <div class="emoji">🎨</div>
-                    <h4>Creative Learning</h4>
-                    <p>
-                        Drawing, colors, letters, numbers,
-                        puzzles, and engaging educational activities.
-                    </p>
-                </div>
-
-                <div class="card">
-                    <div class="emoji">⭐</div>
-                    <h4>Reward System</h4>
-                    <p>
-                        Kids stay motivated with stars,
-                        achievements, and progress tracking.
-                    </p>
-                </div>
-
-                <div class="card">
-                    <div class="emoji">🔒</div>
-                    <h4>Parent Safe</h4>
-                    <p>
-                        Parent-controlled profiles and secure
-                        learning environments for children.
-                    </p>
-                </div>
-
-                <div class="card">
-                    <div class="emoji">📚</div>
-                    <h4>Fun Education</h4>
-                    <p>
-                        Learning becomes exciting with games,
-                        animations, and playful interactions.
-                    </p>
-                </div>
-
-            </div>
-
+        <div class="hero-actions store-buttons">
+          <a href="https://apps.apple.com/us/app/tiny-genius-hub/id6772540874" class="store-btn store-ios" target="_blank" rel="noopener noreferrer">
+            <span class="store-label">Download on the</span>
+            <span class="store-name">App Store</span>
+          </a>
+          <span class="store-btn store-android soon" title="Android version coming soon">
+            <span class="store-label">Google Play</span>
+            <span class="store-name">Coming soon</span>
+          </span>
         </div>
-
-    </section>
-
-    <footer>
-
-        <div class="container">
-
-            <div class="footer-content">
-
-                <div>
-                    © 2026 TinyGenius World. All rights reserved.
-                </div>
-
-                <div class="footer-links">
-                    <a href="tinygenius/privacy.html">Privacy Policy</a>
-                    <a href="tinygenius/terms.html">Terms & Conditions</a>
-                    <a href="mailto:tinygeniushubapp@gmail.com">
-                        Contact
-                    </a>
-                </div>
-
-            </div>
-
+        <div class="hero-see-features">
+          <a href="#features" class="btn btn-ghost">See features</a>
         </div>
+      </div>
+      <div class="hero-visual">
+        <div class="phone-stage phone-stage-hero">
+          <div class="stage-orb stage-orb-1"></div>
+          <div class="stage-orb stage-orb-2"></div>
+          <div class="stage-spark stage-spark-1">✨</div>
+          <div class="stage-spark stage-spark-2">⭐</div>
+          <figure class="phone-mockup phone-mockup-hero">
+            <div class="phone-bezel">
+              <span class="phone-island" aria-hidden="true"></span>
+              <div class="phone-screen">
+                <img src="/tinygenius/images/screens/home.jpg" alt="TinyGenius Hub home screen with stars, coins, and learning games" width="390" height="844" loading="eager" decoding="async" fetchpriority="high" />
+              </div>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    </footer>
+  <section class="section section-gallery" id="screens">
+    <div class="container">
+      <div class="section-title section-title-compact">
+        <h2>Peek inside the app</h2>
+        <p>Real app screens — one continuous row, auto-scrolling.</p>
+      </div>
+    </div>
+    <div class="screens-marquee" aria-label="App screenshots carousel">
+      <div class="screens-marquee-viewport">
+        <div class="screens-track screens-track-marquee">
+          <div class="screens-track-group" role="list">
+            <figure class="phone-mockup phone-mockup-sm" role="listitem">
+              <div class="phone-bezel"><span class="phone-island" aria-hidden="true"></span>
+                <div class="phone-screen"><img src="/tinygenius/images/screens/login.jpg" alt="Parent login" width="390" height="844" loading="lazy" decoding="async" /></div>
+              </div>
+              <figcaption>Login</figcaption>
+            </figure>
+            <figure class="phone-mockup phone-mockup-sm" role="listitem">
+              <div class="phone-bezel"><span class="phone-island" aria-hidden="true"></span>
+                <div class="phone-screen"><img src="/tinygenius/images/screens/home.jpg" alt="Home dashboard" width="390" height="844" loading="lazy" decoding="async" /></div>
+              </div>
+              <figcaption>Home</figcaption>
+            </figure>
+            <figure class="phone-mockup phone-mockup-sm" role="listitem">
+              <div class="phone-bezel"><span class="phone-island" aria-hidden="true"></span>
+                <div class="phone-screen"><img src="/tinygenius/images/screens/shape-game.jpg" alt="Shape Hunt game" width="390" height="844" loading="lazy" decoding="async" /></div>
+              </div>
+              <figcaption>Games</figcaption>
+            </figure>
+            <figure class="phone-mockup phone-mockup-sm" role="listitem">
+              <div class="phone-bezel"><span class="phone-island" aria-hidden="true"></span>
+                <div class="phone-screen"><img src="/tinygenius/images/screens/poems.jpg" alt="Poems in English and Hindi" width="390" height="844" loading="lazy" decoding="async" /></div>
+              </div>
+              <figcaption>Poems</figcaption>
+            </figure>
+            <figure class="phone-mockup phone-mockup-sm" role="listitem">
+              <div class="phone-bezel"><span class="phone-island" aria-hidden="true"></span>
+                <div class="phone-screen"><img src="/tinygenius/images/screens/progress.jpg" alt="Learning progress and tests" width="390" height="844" loading="lazy" decoding="async" /></div>
+              </div>
+              <figcaption>Progress</figcaption>
+            </figure>
+            <figure class="phone-mockup phone-mockup-sm" role="listitem">
+              <div class="phone-bezel"><span class="phone-island" aria-hidden="true"></span>
+                <div class="phone-screen"><img src="/tinygenius/images/screens/family.jpg" alt="Family and learner profiles" width="390" height="844" loading="lazy" decoding="async" /></div>
+              </div>
+              <figcaption>Family</figcaption>
+            </figure>
+            <figure class="phone-mockup phone-mockup-sm" role="listitem">
+              <div class="phone-bezel"><span class="phone-island" aria-hidden="true"></span>
+                <div class="phone-screen"><img src="/tinygenius/images/screens/add-child.jpg" alt="Add a new learner" width="390" height="844" loading="lazy" decoding="async" /></div>
+              </div>
+              <figcaption>Add child</figcaption>
+            </figure>
+          </div>
+          <div class="screens-track-group" aria-hidden="true">
+            <figure class="phone-mockup phone-mockup-sm">
+              <div class="phone-bezel"><span class="phone-island" aria-hidden="true"></span>
+                <div class="phone-screen"><img src="/tinygenius/images/screens/login.jpg" alt="" width="390" height="844" loading="lazy" decoding="async" /></div>
+              </div>
+              <figcaption>Login</figcaption>
+            </figure>
+            <figure class="phone-mockup phone-mockup-sm">
+              <div class="phone-bezel"><span class="phone-island" aria-hidden="true"></span>
+                <div class="phone-screen"><img src="/tinygenius/images/screens/home.jpg" alt="" width="390" height="844" loading="lazy" decoding="async" /></div>
+              </div>
+              <figcaption>Home</figcaption>
+            </figure>
+            <figure class="phone-mockup phone-mockup-sm">
+              <div class="phone-bezel"><span class="phone-island" aria-hidden="true"></span>
+                <div class="phone-screen"><img src="/tinygenius/images/screens/shape-game.jpg" alt="" width="390" height="844" loading="lazy" decoding="async" /></div>
+              </div>
+              <figcaption>Games</figcaption>
+            </figure>
+            <figure class="phone-mockup phone-mockup-sm">
+              <div class="phone-bezel"><span class="phone-island" aria-hidden="true"></span>
+                <div class="phone-screen"><img src="/tinygenius/images/screens/poems.jpg" alt="" width="390" height="844" loading="lazy" decoding="async" /></div>
+              </div>
+              <figcaption>Poems</figcaption>
+            </figure>
+            <figure class="phone-mockup phone-mockup-sm">
+              <div class="phone-bezel"><span class="phone-island" aria-hidden="true"></span>
+                <div class="phone-screen"><img src="/tinygenius/images/screens/progress.jpg" alt="" width="390" height="844" loading="lazy" decoding="async" /></div>
+              </div>
+              <figcaption>Progress</figcaption>
+            </figure>
+            <figure class="phone-mockup phone-mockup-sm">
+              <div class="phone-bezel"><span class="phone-island" aria-hidden="true"></span>
+                <div class="phone-screen"><img src="/tinygenius/images/screens/family.jpg" alt="" width="390" height="844" loading="lazy" decoding="async" /></div>
+              </div>
+              <figcaption>Family</figcaption>
+            </figure>
+            <figure class="phone-mockup phone-mockup-sm">
+              <div class="phone-bezel"><span class="phone-island" aria-hidden="true"></span>
+                <div class="phone-screen"><img src="tinygenius/images/screens/add-child.jpg" alt="" width="390" height="844" loading="lazy" decoding="async" /></div>
+              </div>
+              <figcaption>Add child</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <section class="section section-white" id="features">
+    <div class="container">
+      <div class="section-title">
+        <h2>See TinyGenius Hub in action</h2>
+        <p>Real app screens — playful learning built for growing minds.</p>
+      </div>
+
+      <div class="showcase-list">
+        <article class="showcase-row reveal" data-accent="blue">
+          <div class="showcase-copy">
+            <span class="showcase-tag">Dashboard</span>
+            <h3>Stars, streaks &amp; games</h3>
+            <p>Each child gets a colorful home with progress, rewards, and age-matched activities.</p>
+          </div>
+          <figure class="phone-mockup phone-mockup-feature">
+            <div class="phone-bezel"><span class="phone-island" aria-hidden="true"></span>
+              <div class="phone-screen"><img src="/tinygenius/images/screens/home.jpg" alt="TinyGenius Hub dashboard" width="390" height="844" loading="lazy" decoding="async" /></div>
+            </div>
+          </figure>
+        </article>
+
+        <article class="showcase-row reverse reveal" data-accent="orange">
+          <div class="showcase-copy">
+            <span class="showcase-tag">Games</span>
+            <h3>Interactive learning games</h3>
+            <p>Shape Hunt, alphabet tracing, numbers, colors — fun challenges that teach.</p>
+          </div>
+          <figure class="phone-mockup phone-mockup-feature">
+            <div class="phone-bezel"><span class="phone-island" aria-hidden="true"></span>
+              <div class="phone-screen"><img src="/tinygenius/images/screens/shape-game.jpg" alt="Shape Hunt learning game" width="390" height="844" loading="lazy" decoding="async" /></div>
+            </div>
+          </figure>
+        </article>
+
+        <article class="showcase-row reveal" data-accent="purple">
+          <div class="showcase-copy">
+            <span class="showcase-tag">Poems</span>
+            <h3>English &amp; Hindi poems</h3>
+            <p>Twinkle Twinkle, Johny Johny, and more — switch languages with one tap.</p>
+          </div>
+          <figure class="phone-mockup phone-mockup-feature">
+            <div class="phone-bezel"><span class="phone-island" aria-hidden="true"></span>
+              <div class="phone-screen"><img src="/tinygenius/images/screens/poems.jpg" alt="Poems library" width="390" height="844" loading="lazy" decoding="async" /></div>
+            </div>
+          </figure>
+        </article>
+
+        <article class="showcase-row reverse reveal" data-accent="mint">
+          <div class="showcase-copy">
+            <span class="showcase-tag">Progress</span>
+            <h3>Track every topic</h3>
+            <p>Alphabets, numbers, shapes, colors, and Hindi — see scores grow over time.</p>
+          </div>
+          <figure class="phone-mockup phone-mockup-feature">
+            <div class="phone-bezel"><span class="phone-island" aria-hidden="true"></span>
+              <div class="phone-screen"><img src="/tinygenius/images/screens/progress.jpg" alt="Learning progress and tests" width="390" height="844" loading="lazy" decoding="async" /></div>
+            </div>
+          </figure>
+        </article>
+
+        <article class="showcase-row reveal" data-accent="pink">
+          <div class="showcase-copy">
+            <span class="showcase-tag">Family</span>
+            <h3>Switch learners easily</h3>
+            <p>See who is playing, add children, and manage profiles from one family screen.</p>
+          </div>
+          <figure class="phone-mockup phone-mockup-feature">
+            <div class="phone-bezel"><span class="phone-island" aria-hidden="true"></span>
+              <div class="phone-screen"><img src="/tinygenius/images/screens/family.jpg" alt="Family profiles screen" width="390" height="844" loading="lazy" decoding="async" /></div>
+            </div>
+          </figure>
+        </article>
+
+        <article class="showcase-row reverse reveal" data-accent="blue">
+          <div class="showcase-copy">
+            <span class="showcase-tag">Profiles</span>
+            <h3>Add a new learner</h3>
+            <p>Pick an avatar, age, and favorite color — a fresh learning path in seconds.</p>
+          </div>
+          <figure class="phone-mockup phone-mockup-feature">
+            <div class="phone-bezel"><span class="phone-island" aria-hidden="true"></span>
+              <div class="phone-screen"><img src="/tinygenius/images/screens/add-child.jpg" alt="Add new learner screen" width="390" height="844" loading="lazy" decoding="async" /></div>
+            </div>
+          </figure>
+        </article>
+      </div>
+
+      <div class="features-grid features-mini">
+        <article class="feature-card c-blue">
+          <div class="feature-icon">⭐</div>
+          <h3>Stars & rewards</h3>
+          <p>Motivate learners with stars, coins, and streaks.</p>
+        </article>
+        <article class="feature-card c-mint">
+          <div class="feature-icon">☁️</div>
+          <h3>Cloud sync</h3>
+          <p>Profiles and progress when parents sign in.</p>
+        </article>
+        <article class="feature-card c-purple">
+          <div class="feature-icon">🔒</div>
+          <h3>Parent safe</h3>
+          <p>No child sign-up — parents manage everything.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-cream" id="ages">
+    <div class="container">
+      <div class="section-title">
+        <h2>Learning paths for every age</h2>
+        <p>Content adapts from toddlers to early elementary — not too easy, not too hard.</p>
+      </div>
+      <div class="age-row">
+        <div class="age-card a1">
+          <h3>1–3</h3>
+          <p>Early years — tracing, colors, first sounds</p>
+        </div>
+        <div class="age-card a2">
+          <h3>3–6</h3>
+          <p>Preschool — phonics, shapes, poems & play</p>
+        </div>
+        <div class="age-card a3">
+          <h3>6–9</h3>
+          <p>Growing minds — math, assignments & more</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-white" id="parents">
+    <div class="container">
+      <div class="section-title">
+        <h2>Built for parents first</h2>
+        <p>Children don't sign up alone — you stay in control.</p>
+      </div>
+      <div class="parents-showcase reveal">
+        <figure class="phone-mockup phone-mockup-feature">
+          <div class="phone-bezel"><span class="phone-island" aria-hidden="true"></span>
+            <div class="phone-screen"><img src="/tinygenius/images/screens/login.jpg" alt="Parent login and sign up" width="390" height="844" loading="lazy" decoding="async" /></div>
+          </div>
+        </figure>
+        <div class="steps">
+          <article class="step">
+            <div class="step-num">1</div>
+            <h3>Create your account</h3>
+            <p>Sign in with email or Apple. Set a parent lock PIN for switching learners.</p>
+          </article>
+          <article class="step">
+            <div class="step-num">2</div>
+            <h3>Add learners</h3>
+            <p>Name, age, avatar, and favorite color — one profile per child.</p>
+          </article>
+          <article class="step">
+            <div class="step-num">3</div>
+            <h3>Learn & track</h3>
+            <p>Stars, progress, and age-appropriate activities — sync when signed in.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-band">
+        <h2>Ready to start learning?</h2>
+        <p>Download TinyGenius Hub on iPhone today. Android is on the way.</p>
+        <div class="store-buttons">
+          <a href="https://apps.apple.com/us/app/tiny-genius-hub/id6772540874" class="store-btn store-ios" target="_blank" rel="noopener noreferrer">
+            <span class="store-label">Download on the</span>
+            <span class="store-name">App Store</span>
+          </a>
+          <span class="store-btn store-android soon" title="Android version coming soon">
+            <span class="store-label">Google Play</span>
+            <span class="store-name">Coming soon</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="/tinygenius/logo.png" alt="" width="44" height="44" />
+        <span>TinyGenius Hub</span>
+      </div>
+      <div class="footer-links">
+        <a href="/tinygenius/privacy">Privacy Policy</a>
+        <a href="/tinygenius/terms">Terms & Conditions</a>
+        <a href="mailto:tinygeniushubapp@gmail.com">tinygeniushubapp@gmail.com</a>
+      </div>
+      <p class="footer-copy">© 2026 TinyGenius Hub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/tinygenius/js/site.js" defer></script>
 </body>
 </html>
