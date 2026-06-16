@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scanzen Terms &amp; Conditions</title>
+  <script src="/config.js"></script>
+  <meta name="description" content="Terms and conditions for Scanzen by Lakvanta Technologies." />
+  <link rel="icon" href="/scanzen/logo.png"/>
+  <style>
+    :root {
+      --bg: #0B1228;
+      --card: rgba(17, 26, 48, 0.85);
+      --text: #e6ecf7;
+      --muted: #aab5d4;
+      --line: rgba(148, 163, 184, 0.28);
+      --accent: #3FCB6E;
+      --accent2: #2E6BFF;
+      --radius-lg: 20px;
+      --radius-pill: 999px;
+      --shadow: 0 26px 70px rgba(0, 0, 0, 0.42);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "SF Pro Text", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background:
+        radial-gradient(1000px 600px at -10% -20%, rgba(46, 107, 255, 0.2), transparent 55%),
+        radial-gradient(900px 600px at 110% 120%, rgba(63, 203, 110, 0.16), transparent 45%),
+        linear-gradient(160deg, #070c1c, #0a1124 55%, #0b1228);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(7, 12, 28, 0.74);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 0 10px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .menu a {
+      border: 1px solid var(--line);
+      background: rgba(17, 26, 48, 0.6);
+      color: var(--muted);
+      padding: 7px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+    }
+
+    .menu a.active {
+      color: #07110A;
+      background: linear-gradient(120deg, var(--accent), #61efbf);
+      border-color: transparent;
+      font-weight: 700;
+    }
+
+    .url-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding-bottom: 12px;
+    }
+
+    .url-chip {
+      font-size: 11px;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      background: rgba(17, 26, 48, 0.45);
+      border-radius: var(--radius-pill);
+      padding: 6px 10px;
+      word-break: break-all;
+    }
+
+    main { padding: 28px 0 40px; }
+
+    .hero {
+      margin-bottom: 16px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(17, 26, 48, 0.72);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .policy {
+      display: grid;
+      gap: 12px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      padding: 16px;
+    }
+
+    .card h2 {
+      font-size: 18px;
+      margin-bottom: 6px;
+      letter-spacing: -0.02em;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      margin-top: 28px;
+      padding: 20px 0 26px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 720px) {
+      .menu { width: 100%; }
+      .menu a { flex: 1; text-align: center; }
+      .url-chip { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="nav">
+        <a class="brand" href="/scanzen">
+          <img src="/scanzen/logo.png" alt="Scanzen" />
+          <span id="app-name">Scanzen</span>
+        </a>
+        <nav class="menu">
+          <a href="/scanzen">Home</a>
+          <a href="/scanzen/privacy">Privacy</a>
+          <a class="active" href="/scanzen/terms">Terms</a>
+        </nav>
+      </div>
+      <div class="url-row">
+        <a class="url-chip" id="privacy-chip" href="#" target="_blank" rel="noopener"></a>
+        <a class="url-chip" id="terms-chip" href="#" target="_blank" rel="noopener"></a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>Terms &amp; Conditions</h1>
+      <p>Effective date: <span id="effective-date">June 16, 2026</span></p>
+    </section>
+
+    <section class="policy">
+      <article class="card">
+        <h2>Acceptance of Terms</h2>
+        <p>By downloading or using Scanzen, you agree to these Terms &amp; Conditions. If you do not agree, please do not use the app.</p>
+      </article>
+      <article class="card">
+        <h2>Lawful Use Only</h2>
+        <p>Use Scanzen only for legal and authorized purposes. You are responsible for the documents you scan, store, and share, and you must have the right to do so.</p>
+      </article>
+      <article class="card">
+        <h2>Subscriptions &amp; Billing</h2>
+        <p>Scanzen offers an optional auto-renewable subscription (Scanzen Pro). Payment is charged to your Apple ID at confirmation of purchase. Subscriptions renew automatically unless cancelled at least 24 hours before the end of the current period. You can manage or cancel anytime in your App Store account settings. Any free-trial period is forfeited when a subscription is purchased.</p>
+      </article>
+      <article class="card">
+        <h2>Prohibited Activities</h2>
+        <p>Any misuse, infringement of others’ rights, reverse engineering, or attempts to disrupt the app or its services are not allowed.</p>
+      </article>
+      <article class="card">
+        <h2>Intellectual Property</h2>
+        <p>Scanzen, its design, and its branding are owned by Lakvanta Technologies. The documents you create with the app remain entirely yours.</p>
+      </article>
+      <article class="card">
+        <h2>Service Availability</h2>
+        <p>Features can change, be added, or be paused for maintenance, compliance, or improvement without prior notice.</p>
+      </article>
+      <article class="card">
+        <h2>Liability</h2>
+        <p>The app is provided “as is.” To the extent permitted by law, Lakvanta Technologies is not liable for data loss or damages arising from use of the app. You remain responsible for backing up important documents.</p>
+      </article>
+      <article class="card">
+        <h2>Contact</h2>
+        <p>Questions about these Terms? Email <a id="legal-email" href="#"></a>.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> <span id="footer-app-name">Scanzen</span> · Lakvanta Technologies</p>
+  </footer>
+  <script>
+    const config = window.getAppConfig("scanzen");
+    document.getElementById("app-name").textContent = config.appName;
+    document.getElementById("footer-app-name").textContent = config.appName;
+    document.getElementById("effective-date").textContent = config.effectiveDate;
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const legalEmail = document.getElementById("legal-email");
+    legalEmail.href = `mailto:${config.legalEmail}`;
+    legalEmail.textContent = config.legalEmail;
+
+    const privacyChip = document.getElementById("privacy-chip");
+    privacyChip.href = config.privacyUrl;
+    privacyChip.textContent = `URL: ${config.privacyUrl.replace("https://", "")}`;
+    const termsChip = document.getElementById("terms-chip");
+    termsChip.href = config.termsUrl;
+    termsChip.textContent = `URL: ${config.termsUrl.replace("https://", "")}`;
+  </script>
+</body>
+</html>

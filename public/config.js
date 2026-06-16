@@ -60,6 +60,22 @@ window.APP_CONFIGS = {
     releaseStatus: "Coming Soon",
     isReleased: false,
     effectiveDate: "March 20, 2026"
+  },
+  scanzen: {
+    appName: "Scanzen",
+    supportEmail: "info.elitepdf@gmail.com",
+    privacyEmail: "info.elitepdf@gmail.com",
+    legalEmail: "info.elitepdf@gmail.com",
+    supportPhone: "+91 8360121731",
+    websiteUrl: "https://lakvanta.com/scanzen",
+    privacyUrl: "https://lakvanta.com/scanzen/privacy",
+    termsUrl: "https://lakvanta.com/scanzen/terms",
+    appStoreUrl: "https://apps.apple.com/us/app/scanzen/id6772193018",
+    playStoreUrl: "",
+    releaseStatus: "Released",
+    isReleased: true,
+    effectiveDate: "June 16, 2026",
+    appScheme: "scanzen"
   }
 };
 

@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Scanzen</title>
+  <meta name="description" content="Scanzen is a fast, privacy-first document scanner for iPhone — scan, OCR, convert to PDF/JPG/DOCX/PPTX, merge, and sign, all on-device." />
+  <script src="/config.js"></script>
+  <link rel="icon" href="/scanzen/logo.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+  <style>
+    :root {
+      --bg: #060c1c;
+      --bg-2: #0b1228;
+      --panel: rgba(15, 24, 46, 0.92);
+      --card: rgba(18, 28, 52, 0.94);
+      --line: rgba(148, 163, 184, 0.18);
+      --text: #edf2ff;
+      --muted: #a4b0c9;
+      --primary: #3FCB6E;
+      --accent: #2E6BFF;
+      --shadow: 0 26px 80px rgba(0, 0, 0, 0.38);
+      --radius-xl: 30px;
+      --radius-lg: 20px;
+      --pill: 999px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 540px at 0% 0%, rgba(46, 107, 255, 0.18), transparent 56%),
+        radial-gradient(900px 540px at 100% 100%, rgba(63, 203, 110, 0.16), transparent 56%),
+        linear-gradient(180deg, var(--bg), var(--bg-2));
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .page { max-width: 1160px; margin: 0 auto; padding: 0 22px; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(6, 12, 28, 0.74);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      font-size: 18px;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+    }
+
+    .menu {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .menu a {
+      color: var(--muted);
+      padding: 8px 13px;
+      border-radius: var(--pill);
+      border: 1px solid var(--line);
+      background: rgba(18, 28, 52, 0.6);
+      font-size: 13px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: var(--pill);
+      font-weight: 700;
+      font-size: 14px;
+      transition: transform .2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--primary));
+      box-shadow: 0 16px 48px rgba(46, 107, 255, 0.28);
+    }
+
+    .btn-secondary {
+      background: rgba(18, 28, 52, 0.75);
+      border: 1px solid var(--line);
+      color: var(--text);
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover { transform: translateY(-2px); }
+
+    .hero {
+      padding: 56px 0 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(300px, 0.88fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-panel,
+    .hero-card,
+    .section-card,
+    .feature-card,
+    .persona-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel { padding: 34px; }
+    .hero-card { padding: 24px; }
+
+    .pill {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 7px 12px;
+      border-radius: var(--pill);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+
+    .pill span { color: var(--primary); font-weight: 700; }
+
+    h1 {
+      font-size: clamp(40px, 6vw, 64px);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+      margin-bottom: 16px;
+    }
+
+    h1 .accent {
+      background: linear-gradient(135deg, #9ec6ff, #61efbf);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-copy {
+      max-width: 640px;
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 22px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .hero-stat {
+      padding: 16px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .hero-stat strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-stat span {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .mini-list {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .mini-list li {
+      display: flex;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--primary);
+      margin-top: 7px;
+      flex: 0 0 auto;
+    }
+
+    section { padding: 24px 0; }
+    .section-head {
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+    }
+
+    .section-head h2 {
+      font-size: 30px;
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+
+    .section-head p {
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .feature-grid,
+    .persona-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .feature-card,
+    .persona-card {
+      padding: 22px;
+    }
+
+    .feature-card h3,
+    .persona-card h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p,
+    .persona-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .section-card {
+      padding: 26px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .workflow {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .workflow li {
+      display: flex;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .num {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: rgba(46, 107, 255, 0.16);
+      color: #c8d6ff;
+      font-size: 12px;
+      font-weight: 800;
+      flex: 0 0 auto;
+      margin-top: 2px;
+    }
+
+    .cta-box {
+      padding: 22px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(46, 107, 255, 0.1), rgba(63, 203, 110, 0.08));
+      border: 1px solid rgba(46, 107, 255, 0.16);
+    }
+
+    .cta-box h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .cta-box p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    footer {
+      padding: 30px 0 44px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .section-card,
+      .feature-grid,
+      .persona-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="page nav">
+      <a class="brand" href="/scanzen">
+        <img src="/scanzen/logo.png" alt="Scanzen" />
+        <strong>Scanzen</strong>
+      </a>
+      <nav class="menu">
+        <a href="#features">Features</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#audience">Audience</a>
+        <a href="/scanzen/privacy">Privacy</a>
+        <a href="/scanzen/terms">Terms</a>
+        <a class="btn-secondary" id="nav-download" href="#" target="_blank" rel="noopener">Download</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div class="hero-panel">
+        <div class="pill"><span id="release-badge">LIVE</span> Document scanner • OCR • PDF tools for iPhone</div>
+        <h1>Scan, convert, and sign documents, <span class="accent">right on your iPhone</span>.</h1>
+        <p class="hero-copy">
+          Scanzen turns your camera into a professional document scanner. Capture crisp scans, recognize text, convert to PDF, JPG, DOCX, PPTX, or TXT, then merge and sign — all on-device, with no account required.
+        </p>
+        <div class="hero-actions">
+          <a class="btn-primary" id="hero-download" href="#" target="_blank" rel="noopener">Download Scanzen</a>
+          <a class="btn-secondary" href="#features">Explore features</a>
+        </div>
+        <div class="hero-grid">
+          <div class="hero-stat"><strong>Status</strong><span id="availability-badge">AVAILABLE NOW</span></div>
+          <div class="hero-stat"><strong>Privacy</strong><span>On-device first</span></div>
+          <div class="hero-stat"><strong>Support</strong><span id="support-email">info.elitepdf@gmail.com</span></div>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <h2 style="font-size:20px; margin-bottom:10px;">Why people choose Scanzen</h2>
+        <ul class="mini-list">
+          <li><span class="dot"></span><span>Edge-detected, auto-cropped scans that look clean every time.</span></li>
+          <li><span class="dot"></span><span>On-device text recognition (OCR) — your documents never leave your phone.</span></li>
+          <li><span class="dot"></span><span>Export to the formats you actually need: PDF, JPG, DOCX, PPTX, TXT.</span></li>
+        </ul>
+      </aside>
+    </section>
+
+    <section id="features">
+      <div class="section-head">
+        <div>
+          <h2>Everything you need to handle documents</h2>
+          <p>Built for real paperwork — IDs, receipts, contracts, notes, and books — not just a demo.</p>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <h3>Smart scanning</h3>
+          <p>Scan documents, ID cards, passports, and book spreads with automatic edge detection and cropping.</p>
+        </article>
+        <article class="feature-card">
+          <h3>On-device OCR</h3>
+          <p>Recognize and extract text from any scan or image using Apple Vision — processed locally on your device.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Convert anywhere</h3>
+          <p>Export your documents to PDF, JPG, TXT, DOCX, or PPTX in a couple of taps.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Edit &amp; merge</h3>
+          <p>Crop, adjust, rotate, add pages, and merge multiple documents into a single file.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Sign documents</h3>
+          <p>Add your signature to any page quickly, then share or export the signed file.</p>
+        </article>
+        <article class="feature-card">
+          <h3>QR scanner</h3>
+          <p>Read QR codes instantly and act on links or text without leaving the app.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="workflow">
+      <div class="section-card">
+        <div>
+          <div class="section-head" style="margin-bottom:14px;">
+            <div>
+              <h2>From paper to file in seconds</h2>
+              <p>The workflow is intentionally simple so you can capture and share without friction.</p>
+            </div>
+          </div>
+          <ul class="workflow">
+            <li><span class="num">1</span><span>Open Scanzen and point at the document, ID, or QR code you want to capture.</span></li>
+            <li><span class="num">2</span><span>Let auto-detection crop and clean the scan, or import an existing image.</span></li>
+            <li><span class="num">3</span><span>Recognize text, convert, sign, or merge — then share or save to Files.</span></li>
+          </ul>
+        </div>
+        <div class="cta-box">
+          <h3>Privacy stays straightforward</h3>
+          <p>Scanzen is an on-device, privacy-first scanner. Your documents are stored on your phone and are never uploaded to us.</p>
+          <a class="btn-primary" id="privacy-link" href="/scanzen/privacy">Read Privacy Policy</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="audience">
+      <div class="section-head">
+        <div>
+          <h2>Who it is for</h2>
+          <p>Made for anyone who deals with paperwork on the go.</p>
+        </div>
+      </div>
+      <div class="persona-grid">
+        <article class="persona-card">
+          <h3>Students</h3>
+          <p>Scan notes, handouts, and book pages, then extract text or export clean PDFs for study.</p>
+        </article>
+        <article class="persona-card">
+          <h3>Professionals</h3>
+          <p>Digitize contracts, receipts, and IDs, sign them, and share polished documents instantly.</p>
+        </article>
+        <article class="persona-card">
+          <h3>Freelancers &amp; home users</h3>
+          <p>Keep paperwork organized, convert between formats, and merge files without a desktop.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page">
+    <div class="footer-inner">
+      <span>&copy; <span id="year"></span> Scanzen · Lakvanta Technologies</span>
+      <span id="footer-contact">Support: info.elitepdf@gmail.com</span>
+    </div>
+  </footer>
+
+  <script>
+    const config = window.getAppConfig("scanzen");
+    document.title = config.appName;
+
+    const storeUrl = config.appStoreUrl || "#";
+    const navDownload = document.getElementById("nav-download");
+    const heroDownload = document.getElementById("hero-download");
+    navDownload.href = storeUrl;
+    heroDownload.href = storeUrl;
+    if (!config.isReleased) {
+      navDownload.textContent = "Coming Soon";
+      heroDownload.textContent = "Coming Soon";
+    }
+
+    document.getElementById("privacy-link").href = config.privacyUrl;
+    document.getElementById("release-badge").textContent = config.isReleased ? "LIVE" : config.releaseStatus;
+    document.getElementById("availability-badge").textContent = config.isReleased ? "AVAILABLE NOW" : config.releaseStatus.toUpperCase();
+    document.getElementById("support-email").textContent = config.supportEmail;
+    document.getElementById("footer-contact").textContent = `Support: ${config.supportEmail} • ${config.supportPhone}`;
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
