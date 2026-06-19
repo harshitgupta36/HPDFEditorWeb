@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.lakvanta.bhaktisangrah",
+      "sha256_cert_fingerprints": [
+        "C9:06:BA:17:D8:98:5F:33:EC:62:0C:B8:09:6C:87:3F:82:8F:38:D7:BC:AF:85:D7:4C:8D:D6:97:CA:54:9E:6F"
+      ]
+    }
+  }
+]
